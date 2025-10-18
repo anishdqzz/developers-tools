@@ -1,29 +1,42 @@
 import { Palette, Code, FileJson } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
 import { Button } from "./ui/button";
+import { useNavigate } from "react-router-dom";
 
 const tools = [
   {
     icon: Palette,
-    title: "Color Picker",
-    description: "Pick and generate perfect color palettes for your projects",
-    tags: ["CSS", "Design"],
+    title: "CSS Generator",
+    description: "AI-powered CSS generation from your HTML code",
+    tags: ["CSS", "AI"],
+    path: "/css-tools",
   },
   {
     icon: Code,
     title: "Code Formatter",
     description: "Beautify and format your HTML, CSS, and JavaScript code",
     tags: ["HTML", "CSS", "JS"],
+    path: "#",
   },
   {
     icon: FileJson,
     title: "JSON Formatter",
     description: "Format, validate, and minify JSON data with ease",
     tags: ["Data", "JavaScript"],
+    path: "#",
   },
 ];
 
 export const FeaturedTools = () => {
+  const navigate = useNavigate();
+
+  const handleToolClick = (path: string) => {
+    if (path === "#") {
+      return;
+    }
+    navigate(path);
+  };
+
   return (
     <section id="tools" className="py-24 bg-gradient-secondary">
       <div className="container mx-auto px-4">
@@ -69,8 +82,10 @@ export const FeaturedTools = () => {
                   </div>
                   <Button
                     className="w-full bg-primary hover:bg-primary/90"
+                    onClick={() => handleToolClick(tool.path)}
+                    disabled={tool.path === "#"}
                   >
-                    Try Now
+                    {tool.path === "#" ? "Coming Soon" : "Try Now"}
                   </Button>
                 </CardContent>
               </Card>
