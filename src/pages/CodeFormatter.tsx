@@ -14,6 +14,13 @@ const CodeFormatter = () => {
       color: "from-orange-500 to-red-500",
     },
     {
+      title: "JavaScript",
+      description: "Learn JavaScript with interactive examples",
+      icon: Braces,
+      path: "/js-learning",
+      color: "from-yellow-500 to-orange-500",
+    },
+    {
       title: "CSS",
       description: "Format and beautify your CSS code",
       icon: FileCode,

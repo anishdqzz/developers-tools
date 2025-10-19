@@ -8,6 +8,11 @@ import CssTools from "./pages/CssTools";
 import CodeFormatter from "./pages/CodeFormatter";
 import HtmlBuilders from "./pages/HtmlBuilders";
 import NavbarBuilder from "./pages/builders/NavbarBuilder";
+import TableBuilder from "./pages/builders/TableBuilder";
+import FormBuilder from "./pages/builders/FormBuilder";
+import CardBuilder from "./pages/builders/CardBuilder";
+import LayoutBuilder from "./pages/builders/LayoutBuilder";
+import JsLearning from "./pages/JsLearning";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -24,6 +29,11 @@ const App = () => (
           <Route path="/code-formatter" element={<CodeFormatter />} />
           <Route path="/html-builders" element={<HtmlBuilders />} />
           <Route path="/builders/navbar" element={<NavbarBuilder />} />
+          <Route path="/builders/table" element={<TableBuilder />} />
+          <Route path="/builders/form" element={<FormBuilder />} />
+          <Route path="/builders/card" element={<CardBuilder />} />
+          <Route path="/builders/layout" element={<LayoutBuilder />} />
+          <Route path="/js-learning" element={<JsLearning />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
