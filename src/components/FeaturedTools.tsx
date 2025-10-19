@@ -1,4 +1,4 @@
-import { Palette, Code, FileJson } from "lucide-react";
+import { Palette, Code, FileJson, FileCode } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
 import { Button } from "./ui/button";
 import { useNavigate } from "react-router-dom";
@@ -12,11 +12,11 @@ const tools = [
     path: "/css-tools",
   },
   {
-    icon: Code,
+    icon: FileCode,
     title: "Code Formatter",
-    description: "Beautify and format your HTML, CSS, and JavaScript code",
+    description: "Format HTML, CSS, and JavaScript with powerful builders",
     tags: ["HTML", "CSS", "JS"],
-    path: "#",
+    path: "/code-formatter",
   },
   {
     icon: FileJson,

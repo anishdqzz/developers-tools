@@ -20,20 +20,24 @@ serve(async (req) => {
       throw new Error('LOVABLE_API_KEY is not configured');
     }
 
-    const systemPrompt = `You are an expert CSS developer. Your task is to analyze HTML code and generate beautiful, modern, and responsive CSS styles for it.
+    const systemPrompt = `You are an expert CSS developer. Your task is to analyze HTML code and generate beautiful, modern, and responsive CSS styles for ONLY the specific elements provided.
 
-Guidelines:
-- Create clean, well-organized CSS
-- Use modern CSS features (flexbox, grid, custom properties)
-- Make it responsive with media queries
-- Add smooth transitions and hover effects
-- Use semantic class naming
-- Include comments for clarity
-- Follow BEM or similar methodology
+CRITICAL RULES:
+- Generate CSS ONLY for the exact HTML elements provided by the user
+- DO NOT add global styles like body, html, :root, *, or any elements not in the user's HTML
+- DO NOT add reset styles or normalize CSS
+- Focus exclusively on styling the specific tags, classes, and IDs present in the input
+- Keep the output minimal and directly related to the provided HTML
+
+Guidelines for the specific elements:
+- Use modern CSS features (flexbox, grid, custom properties where appropriate)
+- Add smooth transitions and hover effects for interactive elements
+- Use semantic class naming if classes are present
 - Add modern shadows, gradients, and spacing
-- Ensure accessibility (contrast, focus states)
+- Ensure good contrast and focus states for accessibility
+- Make it responsive if it's a layout component
 
-Return ONLY the CSS code, no explanations or HTML.`;
+Return ONLY the CSS code for the provided HTML elements, no explanations, no HTML, and no global styles.`;
 
     const response = await fetch('https://ai.gateway.lovable.dev/v1/chat/completions', {
       method: 'POST',
