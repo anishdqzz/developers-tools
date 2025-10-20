@@ -1,4 +1,4 @@
-import { Palette, Code, FileJson, FileCode } from "lucide-react";
+import { Palette, Code, Sparkles, FileCode } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
 import { Button } from "./ui/button";
 import { useNavigate } from "react-router-dom";
@@ -19,11 +19,18 @@ const tools = [
     path: "/code-formatter",
   },
   {
-    icon: FileJson,
-    title: "JSON Formatter",
-    description: "Format, validate, and minify JSON data with ease",
-    tags: ["Data", "JavaScript"],
-    path: "#",
+    icon: Code,
+    title: "Icon Library",
+    description: "Browse and copy 100+ beautiful Lucide React icons",
+    tags: ["Icons", "React"],
+    path: "/icons",
+  },
+  {
+    icon: Sparkles,
+    title: "UI Components",
+    description: "Beautiful, ready-to-use UI components with code",
+    tags: ["UI", "Components"],
+    path: "/ui-components",
   },
 ];
 
@@ -52,7 +59,7 @@ export const FeaturedTools = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
           {tools.map((tool, index) => {
             const Icon = tool.icon;
             return (

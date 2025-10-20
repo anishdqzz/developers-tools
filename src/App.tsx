@@ -13,6 +13,8 @@ import FormBuilder from "./pages/builders/FormBuilder";
 import CardBuilder from "./pages/builders/CardBuilder";
 import LayoutBuilder from "./pages/builders/LayoutBuilder";
 import JsLearning from "./pages/JsLearning";
+import Icons from "./pages/Icons";
+import UiComponents from "./pages/UiComponents";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -34,6 +36,8 @@ const App = () => (
           <Route path="/builders/card" element={<CardBuilder />} />
           <Route path="/builders/layout" element={<LayoutBuilder />} />
           <Route path="/js-learning" element={<JsLearning />} />
+          <Route path="/icons" element={<Icons />} />
+          <Route path="/ui-components" element={<UiComponents />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
