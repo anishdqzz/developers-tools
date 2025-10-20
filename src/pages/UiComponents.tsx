@@ -15,43 +15,57 @@ const UiComponents = () => {
   const buttonExamples = [
     {
       title: "Default Button",
-      preview: <Button>Click Me</Button>,
-      code: `<Button>Click Me</Button>`,
+      preview: <Button className="transition-transform hover:scale-105">Click Me</Button>,
+      code: `<Button className="transition-transform hover:scale-105">Click Me</Button>`,
     },
     {
       title: "Outline Button",
-      preview: <Button variant="outline">Outline</Button>,
-      code: `<Button variant="outline">Outline</Button>`,
+      preview: <Button variant="outline" className="transition-transform hover:-translate-y-0.5">Outline</Button>,
+      code: `<Button variant="outline" className="transition-transform hover:-translate-y-0.5">Outline</Button>`,
     },
     {
       title: "Destructive Button",
-      preview: <Button variant="destructive">Delete</Button>,
-      code: `<Button variant="destructive">Delete</Button>`,
+      preview: <Button variant="destructive" className="transition-transform hover:scale-105">Delete</Button>,
+      code: `<Button variant="destructive" className="transition-transform hover:scale-105">Delete</Button>`,
     },
     {
       title: "Secondary Button",
-      preview: <Button variant="secondary">Secondary</Button>,
-      code: `<Button variant="secondary">Secondary</Button>`,
+      preview: <Button variant="secondary" className="transition-transform hover:-translate-y-0.5">Secondary</Button>,
+      code: `<Button variant="secondary" className="transition-transform hover:-translate-y-0.5">Secondary</Button>`,
     },
     {
       title: "Ghost Button",
-      preview: <Button variant="ghost">Ghost</Button>,
-      code: `<Button variant="ghost">Ghost</Button>`,
+      preview: <Button variant="ghost" className="transition-transform hover:scale-105">Ghost</Button>,
+      code: `<Button variant="ghost" className="transition-transform hover:scale-105">Ghost</Button>`,
     },
     {
       title: "Link Button",
-      preview: <Button variant="link">Link</Button>,
-      code: `<Button variant="link">Link</Button>`,
+      preview: <Button variant="link" className="transition-opacity hover:opacity-80">Link</Button>,
+      code: `<Button variant="link" className="transition-opacity hover:opacity-80">Link</Button>`,
     },
     {
       title: "Large Button",
-      preview: <Button size="lg">Large</Button>,
-      code: `<Button size="lg">Large</Button>`,
+      preview: <Button size="lg" className="transition-transform hover:scale-105">Large</Button>,
+      code: `<Button size="lg" className="transition-transform hover:scale-105">Large</Button>`,
     },
     {
       title: "Small Button",
-      preview: <Button size="sm">Small</Button>,
-      code: `<Button size="sm">Small</Button>`,
+      preview: <Button size="sm" className="transition-transform hover:-translate-y-0.5">Small</Button>,
+      code: `<Button size="sm" className="transition-transform hover:-translate-y-0.5">Small</Button>`,
+    },
+    {
+      title: "Glow on Hover",
+      preview: <Button className="shadow-none hover:shadow-glow transition-all">Glow</Button>,
+      code: `<Button className="shadow-none hover:shadow-glow transition-all">Glow</Button>`,
+    },
+    {
+      title: "Gradient Hover",
+      preview: (
+        <Button className="bg-gradient-secondary hover:bg-gradient-primary transition-[background-image]">
+          Gradient Hover
+        </Button>
+      ),
+      code: `<Button className="bg-gradient-secondary hover:bg-gradient-primary transition-[background-image]">Gradient Hover</Button>`,
     },
   ];
 
