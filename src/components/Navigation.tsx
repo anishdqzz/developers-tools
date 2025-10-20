@@ -17,25 +17,24 @@ export const Navigation = () => {
             </span>
           </Link>
 
+          {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
             <Link to="/" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors">
               <Home className="h-4 w-4" />
               <span>Home</span>
             </Link>
-            <Link to="/#tools" className="text-foreground hover:text-primary transition-colors">
+            <a href="#tools" className="text-foreground hover:text-primary transition-colors">
               Tools
-            </Link>
-            <Link to="/#categories" className="text-foreground hover:text-primary transition-colors">
+            </a>
+            <a href="#categories" className="text-foreground hover:text-primary transition-colors">
               Categories
-            </Link>
-            <Link to="/#about" className="text-foreground hover:text-primary transition-colors">
+            </a>
+            <a href="#about" className="text-foreground hover:text-primary transition-colors">
               About
-            </Link>
-            <Link to="/code-formatter">
-              <Button className="bg-gradient-primary hover:opacity-90 transition-opacity">
-                Get Started
-              </Button>
-            </Link>
+            </a>
+            <Button className="bg-gradient-primary hover:opacity-90 transition-opacity">
+              Get Started
+            </Button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -58,32 +57,30 @@ export const Navigation = () => {
               <Home className="h-4 w-4" />
               <span>Home</span>
             </Link>
-            <Link
-              to="/#tools"
+            <a
+              href="#tools"
               className="block text-foreground hover:text-primary transition-colors"
               onClick={() => setIsOpen(false)}
             >
               Tools
-            </Link>
-            <Link
-              to="/#categories"
+            </a>
+            <a
+              href="#categories"
               className="block text-foreground hover:text-primary transition-colors"
               onClick={() => setIsOpen(false)}
             >
               Categories
-            </Link>
-            <Link
-              to="/#about"
+            </a>
+            <a
+              href="#about"
               className="block text-foreground hover:text-primary transition-colors"
               onClick={() => setIsOpen(false)}
             >
               About
-            </Link>
-            <Link to="/code-formatter" onClick={() => setIsOpen(false)}>
-              <Button className="w-full bg-gradient-primary hover:opacity-90 transition-opacity">
-                Get Started
-              </Button>
-            </Link>
+            </a>
+            <Button className="w-full bg-gradient-primary hover:opacity-90 transition-opacity">
+              Get Started
+            </Button>
           </div>
         )}
       </div>
