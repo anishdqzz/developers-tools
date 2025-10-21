@@ -7,28 +7,21 @@ import { Link } from "react-router-dom";
 const CodeFormatter = () => {
   const formatters = [
     {
-      title: "HTML",
-      description: "Format and build HTML code with our powerful builders",
+      title: "HTML Formatter",
+      description: "Format and beautify your HTML code",
       icon: Code,
-      path: "/html-builders",
+      path: "/html-formatter",
       color: "from-orange-500 to-red-500",
     },
     {
-      title: "JavaScript",
-      description: "Learn JavaScript with interactive examples",
-      icon: Braces,
-      path: "/js-learning",
-      color: "from-yellow-500 to-orange-500",
-    },
-    {
-      title: "CSS",
+      title: "CSS Formatter",
       description: "Format and beautify your CSS code",
       icon: FileCode,
       path: "/css-formatter",
       color: "from-blue-500 to-cyan-500",
     },
     {
-      title: "JavaScript",
+      title: "JS Formatter",
       description: "Format and optimize your JavaScript code",
       icon: Braces,
       path: "/js-formatter",
