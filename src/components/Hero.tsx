@@ -29,24 +29,20 @@ export const Hero = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="#tools">
-              <Button
-                size="lg"
-                className="bg-gradient-primary hover:opacity-90 transition-opacity text-lg px-8 shadow-glow"
-              >
-                Explore Tools
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-            </a>
-            <a href="#about">
-              <Button
-                size="lg"
-                variant="outline"
-                className="text-lg px-8 border-primary/50 hover:bg-primary/10"
-              >
-                View Documentation
-              </Button>
-            </a>
+            <Button
+              size="lg"
+              className="bg-gradient-primary hover:opacity-90 transition-opacity text-lg px-8 shadow-glow"
+            >
+              Explore Tools
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              className="text-lg px-8 border-primary/50 hover:bg-primary/10"
+            >
+              View Documentation
+            </Button>
           </div>
 
           {/* Stats */}

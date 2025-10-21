@@ -17,7 +17,6 @@ export const Navigation = () => {
             </span>
           </Link>
 
-          {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
             <Link to="/" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors">
               <Home className="h-4 w-4" />

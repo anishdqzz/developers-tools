@@ -7,9 +7,6 @@ import Index from "./pages/Index";
 import CssTools from "./pages/CssTools";
 import CodeFormatter from "./pages/CodeFormatter";
 import HtmlBuilders from "./pages/HtmlBuilders";
-import HtmlFormatter from "./pages/HtmlFormatter";
-import CssFormatter from "./pages/CssFormatter";
-import JsFormatter from "./pages/JsFormatter";
 import NavbarBuilder from "./pages/builders/NavbarBuilder";
 import TableBuilder from "./pages/builders/TableBuilder";
 import FormBuilder from "./pages/builders/FormBuilder";
@@ -33,9 +30,6 @@ const App = () => (
           <Route path="/css-tools" element={<CssTools />} />
           <Route path="/code-formatter" element={<CodeFormatter />} />
           <Route path="/html-builders" element={<HtmlBuilders />} />
-          <Route path="/html-formatter" element={<HtmlFormatter />} />
-          <Route path="/css-formatter" element={<CssFormatter />} />
-          <Route path="/js-formatter" element={<JsFormatter />} />
           <Route path="/builders/navbar" element={<NavbarBuilder />} />
           <Route path="/builders/table" element={<TableBuilder />} />
           <Route path="/builders/form" element={<FormBuilder />} />
