@@ -29,8 +29,16 @@ export const Navigation = () => {
             <Link to="/ui-components" className="text-foreground hover:text-primary transition-colors">
               Components
             </Link>
+            <a href="#about" className="text-foreground hover:text-primary transition-colors">
+              About
+            </a>
             <Link to="/contact" className="text-foreground hover:text-primary transition-colors">
               Contact
+            </Link>
+            <Link to="/auth">
+              <Button variant="outline" className="mr-2">
+                Login
+              </Button>
             </Link>
             <Link to="/contact">
               <Button className="bg-gradient-primary hover:opacity-90 transition-opacity">
@@ -73,12 +81,24 @@ export const Navigation = () => {
             >
               Components
             </Link>
+            <a
+              href="#about"
+              className="block text-foreground hover:text-primary transition-colors"
+              onClick={() => setIsOpen(false)}
+            >
+              About
+            </a>
             <Link
               to="/contact"
               className="block text-foreground hover:text-primary transition-colors"
               onClick={() => setIsOpen(false)}
             >
               Contact
+            </Link>
+            <Link to="/auth" onClick={() => setIsOpen(false)}>
+              <Button variant="outline" className="w-full mb-2">
+                Login
+              </Button>
             </Link>
             <Link to="/contact" onClick={() => setIsOpen(false)}>
               <Button className="w-full bg-gradient-primary hover:opacity-90 transition-opacity">
