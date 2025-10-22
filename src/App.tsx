@@ -15,6 +15,7 @@ import LayoutBuilder from "./pages/builders/LayoutBuilder";
 import JsLearning from "./pages/JsLearning";
 import Icons from "./pages/Icons";
 import UiComponents from "./pages/UiComponents";
+import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -38,6 +39,7 @@ const App = () => (
           <Route path="/js-learning" element={<JsLearning />} />
           <Route path="/icons" element={<Icons />} />
           <Route path="/ui-components" element={<UiComponents />} />
+          <Route path="/contact" element={<Contact />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

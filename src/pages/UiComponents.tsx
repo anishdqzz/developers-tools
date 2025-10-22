@@ -132,6 +132,52 @@ const UiComponents = () => {
   Outline
 </span>`,
     },
+    {
+      title: "Success Badge",
+      preview: <span className="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold bg-green-500 text-white">Success</span>,
+      code: `<span className="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold bg-green-500 text-white">
+  Success
+</span>`,
+    },
+    {
+      title: "Warning Badge",
+      preview: <span className="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold bg-yellow-500 text-white">Warning</span>,
+      code: `<span className="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold bg-yellow-500 text-white">
+  Warning
+</span>`,
+    },
+    {
+      title: "Error Badge",
+      preview: <span className="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold bg-red-500 text-white">Error</span>,
+      code: `<span className="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold bg-red-500 text-white">
+  Error
+</span>`,
+    },
+  ];
+
+  const alertExamples = [
+    {
+      title: "Info Alert",
+      preview: (
+        <div className="border border-blue-500 bg-blue-50 text-blue-900 p-4 rounded-lg">
+          <strong className="font-semibold">Info:</strong> This is an informational message.
+        </div>
+      ),
+      code: `<div className="border border-blue-500 bg-blue-50 text-blue-900 p-4 rounded-lg">
+  <strong className="font-semibold">Info:</strong> This is an informational message.
+</div>`,
+    },
+    {
+      title: "Success Alert",
+      preview: (
+        <div className="border border-green-500 bg-green-50 text-green-900 p-4 rounded-lg">
+          <strong className="font-semibold">Success:</strong> Operation completed successfully!
+        </div>
+      ),
+      code: `<div className="border border-green-500 bg-green-50 text-green-900 p-4 rounded-lg">
+  <strong className="font-semibold">Success:</strong> Operation completed successfully!
+</div>`,
+    },
   ];
 
   return (
@@ -148,11 +194,12 @@ const UiComponents = () => {
         </div>
 
         <Tabs defaultValue="buttons" className="max-w-7xl mx-auto">
-          <TabsList className="grid w-full grid-cols-4 mb-8">
+          <TabsList className="grid w-full grid-cols-5 mb-8">
             <TabsTrigger value="buttons">Buttons</TabsTrigger>
             <TabsTrigger value="cards">Cards</TabsTrigger>
             <TabsTrigger value="inputs">Inputs</TabsTrigger>
             <TabsTrigger value="badges">Badges</TabsTrigger>
+            <TabsTrigger value="alerts">Alerts</TabsTrigger>
           </TabsList>
 
           <TabsContent value="buttons">
@@ -239,6 +286,32 @@ const UiComponents = () => {
                 <Card key={index} className="p-6">
                   <h3 className="text-xl font-bold mb-4">{example.title}</h3>
                   <div className="mb-4 p-6 bg-muted rounded-lg flex items-center justify-center">
+                    {example.preview}
+                  </div>
+                  <div className="relative">
+                    <pre className="bg-secondary p-4 rounded-lg text-sm overflow-x-auto">
+                      <code>{example.code}</code>
+                    </pre>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      className="absolute top-2 right-2"
+                      onClick={() => copyCode(example.code)}
+                    >
+                      <Copy className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          </TabsContent>
+
+          <TabsContent value="alerts">
+            <div className="grid md:grid-cols-2 gap-6">
+              {alertExamples.map((example, index) => (
+                <Card key={index} className="p-6">
+                  <h3 className="text-xl font-bold mb-4">{example.title}</h3>
+                  <div className="mb-4">
                     {example.preview}
                   </div>
                   <div className="relative">

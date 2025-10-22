@@ -1,4 +1,5 @@
-import { Code2, Github, Twitter, Linkedin } from "lucide-react";
+import { Code2, Github, Twitter, Linkedin, Facebook, Instagram, Youtube } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export const Footer = () => {
   return (
@@ -21,46 +22,99 @@ export const Footer = () => {
             <h3 className="font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-2">
               <li>
-                <a href="#tools" className="text-muted-foreground hover:text-primary transition-colors">
-                  Tools
-                </a>
+                <Link to="/code-formatter" className="text-muted-foreground hover:text-primary transition-colors">
+                  Code Formatter
+                </Link>
               </li>
               <li>
-                <a href="#categories" className="text-muted-foreground hover:text-primary transition-colors">
-                  Categories
-                </a>
+                <Link to="/html-builders" className="text-muted-foreground hover:text-primary transition-colors">
+                  HTML Builders
+                </Link>
               </li>
               <li>
-                <a href="#about" className="text-muted-foreground hover:text-primary transition-colors">
-                  About
-                </a>
+                <Link to="/css-tools" className="text-muted-foreground hover:text-primary transition-colors">
+                  CSS Tools
+                </Link>
+              </li>
+              <li>
+                <Link to="/js-learning" className="text-muted-foreground hover:text-primary transition-colors">
+                  JS Learning
+                </Link>
+              </li>
+              <li>
+                <Link to="/icons" className="text-muted-foreground hover:text-primary transition-colors">
+                  Icons
+                </Link>
+              </li>
+              <li>
+                <Link to="/ui-components" className="text-muted-foreground hover:text-primary transition-colors">
+                  UI Components
+                </Link>
+              </li>
+              <li>
+                <Link to="/contact" className="text-muted-foreground hover:text-primary transition-colors">
+                  Contact
+                </Link>
               </li>
             </ul>
           </div>
 
           <div>
             <h3 className="font-semibold mb-4">Connect</h3>
-            <div className="flex gap-4">
+            <div className="flex flex-wrap gap-3">
               <a
-                href="#"
+                href="https://github.com"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-muted-foreground hover:text-primary transition-colors"
                 aria-label="GitHub"
               >
                 <Github className="h-5 w-5" />
               </a>
               <a
-                href="#"
+                href="https://twitter.com"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-muted-foreground hover:text-primary transition-colors"
                 aria-label="Twitter"
               >
                 <Twitter className="h-5 w-5" />
               </a>
               <a
-                href="#"
+                href="https://linkedin.com"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-muted-foreground hover:text-primary transition-colors"
                 aria-label="LinkedIn"
               >
                 <Linkedin className="h-5 w-5" />
+              </a>
+              <a
+                href="https://facebook.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-primary transition-colors"
+                aria-label="Facebook"
+              >
+                <Facebook className="h-5 w-5" />
+              </a>
+              <a
+                href="https://instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-primary transition-colors"
+                aria-label="Instagram"
+              >
+                <Instagram className="h-5 w-5" />
+              </a>
+              <a
+                href="https://youtube.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-primary transition-colors"
+                aria-label="YouTube"
+              >
+                <Youtube className="h-5 w-5" />
               </a>
             </div>
           </div>

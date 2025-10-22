@@ -23,7 +23,8 @@ import {
   Activity, TrendingUp, TrendingDown, BarChart, PieChart, LineChart, Globe,
   Navigation2, Compass, Map, Plane, Car, Bike, Bus, Train, Truck,
   Rocket, Satellite, Building, Building2, Store, Warehouse, Factory, School,
-  Hospital, Church, Hotel, Trees, Mountain, Waves, Feather, Bug, Anchor
+  Hospital, Church, Hotel, Trees, Mountain, Waves, Feather, Bug, Anchor,
+  Facebook, Instagram, Twitter, Linkedin, Youtube, Github
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -189,6 +190,12 @@ const Icons = () => {
     { name: "Feather", icon: Feather },
     { name: "Bug", icon: Bug },
     { name: "Anchor", icon: Anchor },
+    { name: "Facebook", icon: Facebook },
+    { name: "Instagram", icon: Instagram },
+    { name: "Twitter", icon: Twitter },
+    { name: "Linkedin", icon: Linkedin },
+    { name: "Youtube", icon: Youtube },
+    { name: "Github", icon: Github },
   ];
 
   const filteredIcons = icons.filter(icon =>

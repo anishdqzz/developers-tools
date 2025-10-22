@@ -23,18 +23,20 @@ export const Navigation = () => {
               <Home className="h-4 w-4" />
               <span>Home</span>
             </Link>
-            <a href="#tools" className="text-foreground hover:text-primary transition-colors">
-              Tools
-            </a>
-            <a href="#categories" className="text-foreground hover:text-primary transition-colors">
-              Categories
-            </a>
-            <a href="#about" className="text-foreground hover:text-primary transition-colors">
-              About
-            </a>
-            <Button className="bg-gradient-primary hover:opacity-90 transition-opacity">
-              Get Started
-            </Button>
+            <Link to="/icons" className="text-foreground hover:text-primary transition-colors">
+              Icons
+            </Link>
+            <Link to="/ui-components" className="text-foreground hover:text-primary transition-colors">
+              Components
+            </Link>
+            <Link to="/contact" className="text-foreground hover:text-primary transition-colors">
+              Contact
+            </Link>
+            <Link to="/contact">
+              <Button className="bg-gradient-primary hover:opacity-90 transition-opacity">
+                Get Started
+              </Button>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -57,30 +59,32 @@ export const Navigation = () => {
               <Home className="h-4 w-4" />
               <span>Home</span>
             </Link>
-            <a
-              href="#tools"
+            <Link
+              to="/icons"
               className="block text-foreground hover:text-primary transition-colors"
               onClick={() => setIsOpen(false)}
             >
-              Tools
-            </a>
-            <a
-              href="#categories"
+              Icons
+            </Link>
+            <Link
+              to="/ui-components"
               className="block text-foreground hover:text-primary transition-colors"
               onClick={() => setIsOpen(false)}
             >
-              Categories
-            </a>
-            <a
-              href="#about"
+              Components
+            </Link>
+            <Link
+              to="/contact"
               className="block text-foreground hover:text-primary transition-colors"
               onClick={() => setIsOpen(false)}
             >
-              About
-            </a>
-            <Button className="w-full bg-gradient-primary hover:opacity-90 transition-opacity">
-              Get Started
-            </Button>
+              Contact
+            </Link>
+            <Link to="/contact" onClick={() => setIsOpen(false)}>
+              <Button className="w-full bg-gradient-primary hover:opacity-90 transition-opacity">
+                Get Started
+              </Button>
+            </Link>
           </div>
         )}
       </div>
