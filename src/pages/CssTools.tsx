@@ -49,10 +49,15 @@ const CssTools = () => {
     }
   };
 
-  const handleCopyCSS = () => {
+  const handleCopyCSS = async () => {
     if (generatedCSS) {
-      navigator.clipboard.writeText(generatedCSS);
-      toast.success("CSS copied to clipboard!");
+      try {
+        await navigator.clipboard.writeText(generatedCSS);
+        toast.success("CSS copied to clipboard!");
+      } catch (error) {
+        console.error('Copy error:', error);
+        toast.error("Failed to copy CSS");
+      }
     }
   };
 

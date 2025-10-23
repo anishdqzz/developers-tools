@@ -1,4 +1,4 @@
-import { Code, Palette, Braces, Layers, Database, Wand2 } from "lucide-react";
+import { Code, Palette, Braces, Layers, Wand2 } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
 
 const categories = [
@@ -25,12 +25,6 @@ const categories = [
     title: "React Helpers",
     description: "Component generators and React-specific utilities",
     count: "10 tools",
-  },
-  {
-    icon: Database,
-    title: "Data Tools",
-    description: "JSON formatters, converters, and validators",
-    count: "8 tools",
   },
   {
     icon: Wand2,
