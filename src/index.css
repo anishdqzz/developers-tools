@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
-
 @layer base {
   :root {
     --background: 210 30% 12%;
@@ -46,9 +42,7 @@ All colors MUST be HSL.
     --shadow-glow: 0 0 40px hsl(190 80% 60% / 0.3);
     --shadow-card: 0 8px 32px hsl(210 30% 8% / 0.5);
   }
-}
 
-@layer base {
   * {
     @apply border-border;
   }
