@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Sparkles, Copy, Download, Loader2 } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
 const CssTools = () => {
@@ -21,32 +20,11 @@ const CssTools = () => {
 
     setIsGenerating(true);
     setGeneratedCSS("");
-
-    try {
-      const { data, error } = await supabase.functions.invoke('generate-css', {
-        body: { htmlCode }
-      });
-
-      if (error) {
-        console.error('Function error:', error);
-        toast.error(error.message || "Failed to generate CSS");
-        return;
-      }
-
-      if (data.error) {
-        toast.error(data.error);
-        return;
-      }
-
-      setGeneratedCSS(data.css);
-      toast.success("CSS generated successfully!");
-
-    } catch (error) {
-      console.error('Generation error:', error);
-      toast.error("An unexpected error occurred");
-    } finally {
-      setIsGenerating(false);
-    }
+    // AI generation is disabled in this example
+    setTimeout(() => {
+        toast.error("AI CSS generation is currently disabled.");
+        setIsGenerating(false);
+    }, 1000);
   };
 
   const handleCopyCSS = async () => {

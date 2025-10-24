@@ -1,9 +1,24 @@
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
-import { Card } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Copy } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import {
+  Copy,
+  SquareMousePointer,
+  RectangleHorizontal,
+  Type,
+  Badge as BadgeIcon,
+  AlertTriangle,
+  Mail,
+  Loader2,
+  Bird,
+  Terminal,
+  CheckCircle2,
+  ShieldAlert
+} from "lucide-react";
 import { toast } from "sonner";
 
 const UiComponents = () => {
@@ -11,6 +26,51 @@ const UiComponents = () => {
     navigator.clipboard.writeText(code);
     toast.success("Code copied to clipboard!");
   };
+
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const componentCategories = [
+    {
+      title: "Buttons",
+      description: "Various styles for user actions.",
+      icon: SquareMousePointer,
+      id: "buttons",
+      color: "from-blue-500 to-cyan-500",
+    },
+    {
+      title: "Cards",
+      description: "Flexible content containers.",
+      icon: RectangleHorizontal,
+      id: "cards",
+      color: "from-purple-500 to-pink-500",
+    },
+    {
+      title: "Inputs",
+      description: "Text fields for user input.",
+      icon: Type,
+      id: "inputs",
+      color: "from-green-500 to-teal-500",
+    },
+    {
+      title: "Badges",
+      description: "Small status indicators.",
+      icon: BadgeIcon,
+      id: "badges",
+      color: "from-yellow-500 to-orange-500",
+    },
+    {
+      title: "Alerts",
+      description: "Contextual feedback messages.",
+      icon: AlertTriangle,
+      id: "alerts",
+      color: "from-red-500 to-orange-500",
+    },
+  ];
 
   const buttonExamples = [
     {
@@ -44,14 +104,28 @@ const UiComponents = () => {
       code: `<Button variant="link">Link</Button>`,
     },
     {
-      title: "Large Button",
-      preview: <Button size="lg">Large</Button>,
-      code: `<Button size="lg">Large</Button>`,
+      title: "Icon Button",
+      preview: (
+        <Button variant="outline" size="icon">
+          <Mail className="h-4 w-4" />
+        </Button>
+      ),
+      code: `<Button variant="outline" size="icon">
+  <Mail className="h-4 w-4" />
+</Button>`,
     },
     {
-      title: "Small Button",
-      preview: <Button size="sm">Small</Button>,
-      code: `<Button size="sm">Small</Button>`,
+      title: "Loading Button",
+      preview: (
+        <Button disabled>
+          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+          Please wait
+        </Button>
+      ),
+      code: `<Button disabled>
+  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+  Please wait
+</Button>`,
     },
   ];
 
@@ -59,21 +133,37 @@ const UiComponents = () => {
     {
       title: "Simple Card",
       preview: (
-        <Card className="p-6">
-          <h3 className="text-xl font-bold mb-2">Card Title</h3>
-          <p className="text-muted-foreground">This is a simple card component.</p>
+        <Card>
+          <CardHeader>
+            <CardTitle>Card Title</CardTitle>
+            <CardDescription>This is a simple card component.</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <p>Card content goes here.</p>
+          </CardContent>
+          <CardFooter>
+            <Button>Action</Button>
+          </CardFooter>
         </Card>
       ),
-      code: `<Card className="p-6">
-  <h3 className="text-xl font-bold mb-2">Card Title</h3>
-  <p className="text-muted-foreground">This is a simple card component.</p>
+      code: `<Card>
+  <CardHeader>
+    <CardTitle>Card Title</CardTitle>
+    <CardDescription>This is a simple card component.</CardDescription>
+  </CardHeader>
+  <CardContent>
+    <p>Card content goes here.</p>
+  </CardContent>
+  <CardFooter>
+    <Button>Action</Button>
+  </CardFooter>
 </Card>`,
     },
     {
       title: "Card with Image",
       preview: (
         <Card className="overflow-hidden">
-          <div className="h-40 bg-gradient-primary" />
+          <img src="https://source.unsplash.com/random/400x200" alt="Card image" className="w-full h-auto" />
           <div className="p-6">
             <h3 className="text-xl font-bold mb-2">Image Card</h3>
             <p className="text-muted-foreground">Card with image header</p>
@@ -81,7 +171,7 @@ const UiComponents = () => {
         </Card>
       ),
       code: `<Card className="overflow-hidden">
-  <div className="h-40 bg-gradient-primary" />
+  <img src="https://source.unsplash.com/random/400x200" alt="Card image" className="w-full h-auto" />
   <div className="p-6">
     <h3 className="text-xl font-bold mb-2">Image Card</h3>
     <p className="text-muted-foreground">Card with image header</p>
@@ -93,91 +183,155 @@ const UiComponents = () => {
   const inputExamples = [
     {
       title: "Text Input",
-      preview: <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm" placeholder="Enter text..." />,
-      code: `<input 
-  className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm" 
-  placeholder="Enter text..." 
-/>`,
+      preview: <Input placeholder="Enter text..." />,
+      code: `<Input placeholder="Enter text..." />`,
     },
     {
-      title: "Email Input",
-      preview: <input type="email" className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm" placeholder="Enter email..." />,
-      code: `<input 
-  type="email"
-  className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm" 
-  placeholder="Enter email..." 
-/>`,
+      title: "Input with Icon",
+      preview: (
+        <div className="relative">
+          <Mail className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+          <Input placeholder="Email" className="pl-10" />
+        </div>
+      ),
+      code: `<div className="relative">
+  <Mail className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+  <Input placeholder="Email" className="pl-10" />
+</div>`,
     },
+    {
+        title: "Input with Button",
+        preview: (
+            <div className="flex w-full max-w-sm items-center space-x-2">
+                <Input type="email" placeholder="Email" />
+                <Button type="submit">Subscribe</Button>
+            </div>
+        ),
+        code: `<div className="flex w-full max-w-sm items-center space-x-2">
+    <Input type="email" placeholder="Email" />
+    <Button type="submit">Subscribe</Button>
+</div>`
+    },
+    {
+        title: "Disabled Input",
+        preview: <Input disabled placeholder="Disabled input" />,
+        code: `<Input disabled placeholder="Disabled input" />`
+    }
   ];
 
   const badgeExamples = [
     {
       title: "Default Badge",
-      preview: <span className="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold bg-primary text-primary-foreground">Badge</span>,
-      code: `<span className="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold bg-primary text-primary-foreground">
-  Badge
-</span>`,
+      preview: <Badge>Badge</Badge>,
+      code: `<Badge>Badge</Badge>`,
     },
     {
       title: "Secondary Badge",
-      preview: <span className="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold bg-secondary text-secondary-foreground">Secondary</span>,
-      code: `<span className="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold bg-secondary text-secondary-foreground">
-  Secondary
-</span>`,
+      preview: <Badge variant="secondary">Secondary</Badge>,
+      code: `<Badge variant="secondary">Secondary</Badge>`,
     },
     {
       title: "Outline Badge",
-      preview: <span className="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold border border-input">Outline</span>,
-      code: `<span className="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold border border-input">
-  Outline
-</span>`,
+      preview: <Badge variant="outline">Outline</Badge>,
+      code: `<Badge variant="outline">Outline</Badge>`,
     },
     {
-      title: "Success Badge",
-      preview: <span className="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold bg-green-500 text-white">Success</span>,
-      code: `<span className="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold bg-green-500 text-white">
-  Success
-</span>`,
+        title: "Destructive Badge",
+        preview: <Badge variant="destructive">Destructive</Badge>,
+        code: `<Badge variant="destructive">Destructive</Badge>`
     },
     {
-      title: "Warning Badge",
-      preview: <span className="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold bg-yellow-500 text-white">Warning</span>,
-      code: `<span className="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold bg-yellow-500 text-white">
-  Warning
-</span>`,
-    },
-    {
-      title: "Error Badge",
-      preview: <span className="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold bg-red-500 text-white">Error</span>,
-      code: `<span className="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold bg-red-500 text-white">
-  Error
-</span>`,
-    },
+        title: "Badge with Icon",
+        preview: <Badge><Bird className="mr-1 h-3 w-3" />Twitter</Badge>,
+        code: `<Badge><Bird className="mr-1 h-3 w-3" />Twitter</Badge>`
+    }
   ];
 
   const alertExamples = [
     {
       title: "Info Alert",
       preview: (
-        <div className="border border-blue-500 bg-blue-50 text-blue-900 p-4 rounded-lg">
-          <strong className="font-semibold">Info:</strong> This is an informational message.
-        </div>
+        <Alert>
+          <Terminal className="h-4 w-4" />
+          <AlertTitle>Heads up!</AlertTitle>
+          <AlertDescription>
+            You can use a terminal in this application.
+          </AlertDescription>
+        </Alert>
       ),
-      code: `<div className="border border-blue-500 bg-blue-50 text-blue-900 p-4 rounded-lg">
-  <strong className="font-semibold">Info:</strong> This is an informational message.
-</div>`,
+      code: `<Alert>
+  <Terminal className="h-4 w-4" />
+  <AlertTitle>Heads up!</AlertTitle>
+  <AlertDescription>
+    You can use a terminal in this application.
+  </AlertDescription>
+</Alert>`,
     },
     {
       title: "Success Alert",
       preview: (
-        <div className="border border-green-500 bg-green-50 text-green-900 p-4 rounded-lg">
-          <strong className="font-semibold">Success:</strong> Operation completed successfully!
-        </div>
+        <Alert variant="default" className="bg-green-100 border-green-400 text-green-700">
+          <CheckCircle2 className="h-4 w-4" />
+          <AlertTitle>Success</AlertTitle>
+          <AlertDescription>
+            Your changes have been saved successfully.
+          </AlertDescription>
+        </Alert>
       ),
-      code: `<div className="border border-green-500 bg-green-50 text-green-900 p-4 rounded-lg">
-  <strong className="font-semibold">Success:</strong> Operation completed successfully!
-</div>`,
+      code: `<Alert variant="default" className="bg-green-100 border-green-400 text-green-700">
+  <CheckCircle2 className="h-4 w-4" />
+  <AlertTitle>Success</AlertTitle>
+  <AlertDescription>
+    Your changes have been saved successfully.
+  </AlertDescription>
+</Alert>`,
     },
+    {
+      title: "Warning Alert",
+      preview: (
+        <Alert variant="default" className="bg-yellow-100 border-yellow-400 text-yellow-700">
+          <ShieldAlert className="h-4 w-4" />
+          <AlertTitle>Warning</AlertTitle>
+          <AlertDescription>
+            Please be cautious when proceeding.
+          </AlertDescription>
+        </Alert>
+      ),
+      code: `<Alert variant="default" className="bg-yellow-100 border-yellow-400 text-yellow-700">
+  <ShieldAlert className="h-4 w-4" />
+  <AlertTitle>Warning</AlertTitle>
+  <AlertDescription>
+    Please be cautious when proceeding.
+  </AlertDescription>
+</Alert>`,
+    },
+    {
+      title: "Destructive Alert",
+      preview: (
+        <Alert variant="destructive">
+          <AlertTriangle className="h-4 w-4" />
+          <AlertTitle>Error</AlertTitle>
+          <AlertDescription>
+            Your session has expired. Please log in again.
+          </AlertDescription>
+        </Alert>
+      ),
+      code: `<Alert variant="destructive">
+  <AlertTriangle className="h-4 w-4" />
+  <AlertTitle>Error</AlertTitle>
+  <AlertDescription>
+    Your session has expired. Please log in again.
+  </AlertDescription>
+</Alert>`,
+    },
+  ];
+
+  const allExamples = [
+    { id: "buttons", title: "Buttons", examples: buttonExamples },
+    { id: "cards", title: "Cards", examples: cardExamples },
+    { id: "inputs", title: "Inputs", examples: inputExamples },
+    { id: "badges", title: "Badges", examples: badgeExamples },
+    { id: "alerts", title: "Alerts", examples: alertExamples },
   ];
 
   return (
@@ -193,21 +347,46 @@ const UiComponents = () => {
           </p>
         </div>
 
-        <Tabs defaultValue="buttons" className="max-w-7xl mx-auto">
-          <TabsList className="grid w-full grid-cols-5 mb-8">
-            <TabsTrigger value="buttons">Buttons</TabsTrigger>
-            <TabsTrigger value="cards">Cards</TabsTrigger>
-            <TabsTrigger value="inputs">Inputs</TabsTrigger>
-            <TabsTrigger value="badges">Badges</TabsTrigger>
-            <TabsTrigger value="alerts">Alerts</TabsTrigger>
-          </TabsList>
+        <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-6 max-w-7xl mx-auto mb-16">
+          {componentCategories.map((category) => {
+            const Icon = category.icon;
+            return (
+              <div
+                key={category.title}
+                onClick={() => scrollToSection(category.id)}
+                className="cursor-pointer"
+              >
+                <Card className="p-6 hover:shadow-xl transition-all duration-300 group h-full text-center">
+                  <div
+                    className={`w-16 h-16 rounded-lg bg-gradient-to-br ${category.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform mx-auto`}
+                  >
+                    <Icon className="h-8 w-8 text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold">{category.title}</h3>
+                </Card>
+              </div>
+            );
+          })}
+        </div>
 
-          <TabsContent value="buttons">
-            <div className="grid md:grid-cols-2 gap-6">
-              {buttonExamples.map((example, index) => (
+        {allExamples.map((section) => (
+          <section
+            key={section.id}
+            id={section.id}
+            className="pt-20 -mt-20"
+          >
+            <h2 className="text-3xl font-bold mb-8 text-center">
+              {section.title}
+            </h2>
+            <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+              {section.examples.map((example, index) => (
                 <Card key={index} className="p-6">
                   <h3 className="text-xl font-bold mb-4">{example.title}</h3>
-                  <div className="mb-4 p-6 bg-muted rounded-lg flex items-center justify-center">
+                  <div
+                    className={`mb-4 p-6 bg-muted rounded-lg flex items-center justify-center ${
+                      section.id === "cards" ? "" : "min-h-[120px]"
+                    }`}
+                  >
                     {example.preview}
                   </div>
                   <div className="relative">
@@ -226,112 +405,8 @@ const UiComponents = () => {
                 </Card>
               ))}
             </div>
-          </TabsContent>
-
-          <TabsContent value="cards">
-            <div className="grid md:grid-cols-2 gap-6">
-              {cardExamples.map((example, index) => (
-                <Card key={index} className="p-6">
-                  <h3 className="text-xl font-bold mb-4">{example.title}</h3>
-                  <div className="mb-4">
-                    {example.preview}
-                  </div>
-                  <div className="relative">
-                    <pre className="bg-secondary p-4 rounded-lg text-sm overflow-x-auto">
-                      <code>{example.code}</code>
-                    </pre>
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      className="absolute top-2 right-2"
-                      onClick={() => copyCode(example.code)}
-                    >
-                      <Copy className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </Card>
-              ))}
-            </div>
-          </TabsContent>
-
-          <TabsContent value="inputs">
-            <div className="grid md:grid-cols-2 gap-6">
-              {inputExamples.map((example, index) => (
-                <Card key={index} className="p-6">
-                  <h3 className="text-xl font-bold mb-4">{example.title}</h3>
-                  <div className="mb-4 p-6 bg-muted rounded-lg">
-                    {example.preview}
-                  </div>
-                  <div className="relative">
-                    <pre className="bg-secondary p-4 rounded-lg text-sm overflow-x-auto">
-                      <code>{example.code}</code>
-                    </pre>
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      className="absolute top-2 right-2"
-                      onClick={() => copyCode(example.code)}
-                    >
-                      <Copy className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </Card>
-              ))}
-            </div>
-          </TabsContent>
-
-          <TabsContent value="badges">
-            <div className="grid md:grid-cols-2 gap-6">
-              {badgeExamples.map((example, index) => (
-                <Card key={index} className="p-6">
-                  <h3 className="text-xl font-bold mb-4">{example.title}</h3>
-                  <div className="mb-4 p-6 bg-muted rounded-lg flex items-center justify-center">
-                    {example.preview}
-                  </div>
-                  <div className="relative">
-                    <pre className="bg-secondary p-4 rounded-lg text-sm overflow-x-auto">
-                      <code>{example.code}</code>
-                    </pre>
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      className="absolute top-2 right-2"
-                      onClick={() => copyCode(example.code)}
-                    >
-                      <Copy className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </Card>
-              ))}
-            </div>
-          </TabsContent>
-
-          <TabsContent value="alerts">
-            <div className="grid md:grid-cols-2 gap-6">
-              {alertExamples.map((example, index) => (
-                <Card key={index} className="p-6">
-                  <h3 className="text-xl font-bold mb-4">{example.title}</h3>
-                  <div className="mb-4">
-                    {example.preview}
-                  </div>
-                  <div className="relative">
-                    <pre className="bg-secondary p-4 rounded-lg text-sm overflow-x-auto">
-                      <code>{example.code}</code>
-                    </pre>
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      className="absolute top-2 right-2"
-                      onClick={() => copyCode(example.code)}
-                    >
-                      <Copy className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </Card>
-              ))}
-            </div>
-          </TabsContent>
-        </Tabs>
+          </section>
+        ))}
       </main>
       <Footer />
     </div>

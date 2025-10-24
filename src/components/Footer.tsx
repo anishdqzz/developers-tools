@@ -10,7 +10,7 @@ export const Footer = () => {
             <div className="flex items-center gap-2 mb-4">
               <Code2 className="h-8 w-8 text-primary" />
               <span className="text-xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-                DevToolKit
+                OopsDev
               </span>
             </div>
             <p className="text-muted-foreground max-w-md">
@@ -121,7 +121,7 @@ export const Footer = () => {
         </div>
 
         <div className="mt-8 pt-8 border-t border-border text-center text-muted-foreground">
-          <p>&copy; {new Date().getFullYear()} DevToolKit. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} OopsDev. All rights reserved.</p>
         </div>
       </div>
     </footer>

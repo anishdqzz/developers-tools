@@ -15,19 +15,20 @@ const NavbarBuilder = () => {
   const [brandName, setBrandName] = useState("MyBrand");
   const [bgColor, setBgColor] = useState("#ffffff");
   const [textColor, setTextColor] = useState("#000000");
+  const [hoverTextColor, setHoverTextColor] = useState("#999999");
   const [showPreview, setShowPreview] = useState(true);
 
   const generateHTML = () => {
-    return `<nav style="background-color: ${bgColor}; color: ${textColor}; padding: 1rem; display: flex; justify-content: space-between; align-items: center;">
-  <div class="brand" style="font-size: 1.5rem; font-weight: bold;">${brandName}</div>
-  <ul style="display: flex; list-style: none; gap: 2rem; margin: 0; padding: 0;">
-${navItems.map(item => `    <li><a href="#${item.toLowerCase()}" style="color: ${textColor}; text-decoration: none;">${item}</a></li>`).join('\n')}
+    return `<nav class="navbar">
+  <div class="brand">${brandName}</div>
+  <ul>
+${navItems.map(item => `    <li><a href="#${item.toLowerCase()}">${item}</a></li>`).join('\n')}
   </ul>
 </nav>`;
   };
 
   const generateCSS = () => {
-    return `nav {
+    return `.navbar {
   background-color: ${bgColor};
   color: ${textColor};
   padding: 1rem;
@@ -42,7 +43,7 @@ ${navItems.map(item => `    <li><a href="#${item.toLowerCase()}" style="color: $
   font-weight: bold;
 }
 
-nav ul {
+.navbar ul {
   display: flex;
   list-style: none;
   gap: 2rem;
@@ -50,14 +51,14 @@ nav ul {
   padding: 0;
 }
 
-nav a {
+.navbar a {
   color: ${textColor};
   text-decoration: none;
-  transition: opacity 0.3s;
+  transition: color 0.3s;
 }
 
-nav a:hover {
-  opacity: 0.7;
+.navbar a:hover {
+  color: ${hoverTextColor};
 }`;
   };
 
@@ -124,7 +125,7 @@ nav a:hover {
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <Label htmlFor="bgColor">Background Color</Label>
+                  <Label htmlFor="bgColor">Background</Label>
                   <Input
                     id="bgColor"
                     type="color"
@@ -134,7 +135,7 @@ nav a:hover {
                   />
                 </div>
                 <div>
-                  <Label htmlFor="textColor">Text Color</Label>
+                  <Label htmlFor="textColor">Text</Label>
                   <Input
                     id="textColor"
                     type="color"
@@ -143,6 +144,17 @@ nav a:hover {
                     className="mt-2 h-10"
                   />
                 </div>
+              </div>
+              
+              <div>
+                <Label htmlFor="hoverTextColor">Hover Text</Label>
+                <Input
+                  id="hoverTextColor"
+                  type="color"
+                  value={hoverTextColor}
+                  onChange={(e) => setHoverTextColor(e.target.value)}
+                  className="mt-2 h-10"
+                />
               </div>
 
               <div>
@@ -187,7 +199,7 @@ nav a:hover {
                 <h2 className="text-2xl font-bold mb-4">Preview</h2>
                 <div 
                   className="border rounded-lg overflow-hidden"
-                  dangerouslySetInnerHTML={{ __html: generateHTML() }}
+                  dangerouslySetInnerHTML={{ __html: `<style>${generateCSS()}</style>${generateHTML()}` }}
                 />
               </Card>
             )}

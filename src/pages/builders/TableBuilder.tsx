@@ -18,54 +18,70 @@ const TableBuilder = () => {
   const [striped, setStriped] = useState(false);
   const [showPreview, setShowPreview] = useState(true);
 
+  // Color States
+  const [headerBgColor, setHeaderBgColor] = useState("#f4f4f4");
+  const [headerTextColor, setHeaderTextColor] = useState("#000000");
+  const [cellBgColor, setCellBgColor] = useState("#ffffff");
+  const [cellTextColor, setCellTextColor] = useState("#000000");
+  const [stripeColor, setStripeColor] = useState("#f9f9f9");
+  const [borderColor, setBorderColor] = useState("#dddddd");
+  const [hoverColor, setHoverColor] = useState("#f5f5f5");
+
   const generateHTML = () => {
-    let html = `<table${bordered ? ' class="bordered"' : ''}${striped ? ' class="striped"' : ''}>
+    let html = `<table class="custom-table${bordered ? " bordered" : ""}${striped ? " striped" : ""}">
   <thead>
     <tr>
-${headers.map(h => `      <th>${h}</th>`).join('\n')}
+${headers.map((h) => `      <th>${h}</th>`).join("\n")}
     </tr>
   </thead>
   <tbody>
 `;
     for (let i = 0; i < rows; i++) {
-      html += '    <tr>\n';
+      html += "    <tr>\n";
       for (let j = 0; j < cols; j++) {
         html += `      <td>Cell ${i + 1}-${j + 1}</td>\n`;
       }
-      html += '    </tr>\n';
+      html += "    </tr>\n";
     }
-    html += '  </tbody>\n</table>';
+    html += "  </tbody>\n</table>";
     return html;
   };
 
   const generateCSS = () => {
-    return `table {
+    return `.custom-table {
   width: 100%;
   border-collapse: collapse;
   font-family: Arial, sans-serif;
+  background-color: ${cellBgColor};
+  color: ${cellTextColor};
 }
 
-th, td {
+.custom-table th, .custom-table td {
   padding: 12px;
   text-align: left;
 }
 
-th {
-  background-color: #f4f4f4;
+.custom-table th {
+  background-color: ${headerBgColor};
+  color: ${headerTextColor};
   font-weight: bold;
 }
 
-${bordered ? `table.bordered th,
-table.bordered td {
-  border: 1px solid #ddd;
-}` : ''}
+${bordered
+    ? `.custom-table.bordered th,
+.custom-table.bordered td {
+  border: 1px solid ${borderColor};
+}`
+    : ""}
 
-${striped ? `table.striped tbody tr:nth-child(odd) {
-  background-color: #f9f9f9;
-}` : ''}
+${striped
+    ? `.custom-table.striped tbody tr:nth-child(odd) {
+  background-color: ${stripeColor};
+}`
+    : ""}
 
-tr:hover {
-  background-color: #f5f5f5;
+.custom-table tbody tr:hover {
+  background-color: ${hoverColor};
 }`;
   };
 
@@ -103,7 +119,7 @@ tr:hover {
         <div className="grid lg:grid-cols-2 gap-8 max-w-7xl mx-auto">
           <Card className="p-6">
             <h2 className="text-2xl font-bold mb-6">Configuration</h2>
-            
+
             <div className="space-y-6">
               <div className="grid grid-cols-2 gap-4">
                 <div>
@@ -129,11 +145,69 @@ tr:hover {
                     onChange={(e) => {
                       const newCols = parseInt(e.target.value) || 1;
                       setCols(newCols);
-                      setHeaders(Array(newCols).fill(0).map((_, i) => `Header ${i + 1}`));
+                      setHeaders(
+                        Array(newCols)
+                          .fill(0)
+                          .map((_, i) => `Header ${i + 1}`)
+                      );
                     }}
                     className="mt-2"
                   />
                 </div>
+              </div>
+
+              <div className="space-y-4">
+                  <Label>Header Color</Label>
+                <div className="grid grid-cols-2 gap-4">
+                  <Input
+                    type="color"
+                    value={headerBgColor}
+                    onChange={(e) => setHeaderBgColor(e.target.value)}
+                    className="mt-2 h-10"
+                  />
+                  <Input
+                    type="color"
+                    value={headerTextColor}
+                    onChange={(e) => setHeaderTextColor(e.target.value)}
+                    className="mt-2 h-10"
+                  />
+                </div>
+                  <Label>Cell Color</Label>
+                <div className="grid grid-cols-2 gap-4">
+                  <Input
+                    type="color"
+                    value={cellBgColor}
+                    onChange={(e) => setCellBgColor(e.target.value)}
+                    className="mt-2 h-10"
+                  />
+                  <Input
+                    type="color"
+                    value={cellTextColor}
+                    onChange={(e) => setCellTextColor(e.target.value)}
+                    className="mt-2 h-10"
+                  />
+                </div>
+                <Label>Stripe Color</Label>
+                <Input
+                  type="color"
+                  value={stripeColor}
+                  onChange={(e) => setStripeColor(e.target.value)}
+                  className="mt-2 h-10"
+                />
+                <Label>Border Color</Label>
+                <Input
+                  type="color"
+                  value={borderColor}
+                  onChange={(e) => setBorderColor(e.target.value)}
+                  className="mt-2 h-10"
+                />
+                <Label>Hover Color</Label>
+                <Input
+                  type="color"
+                  value={hoverColor}
+                  onChange={(e) => setHoverColor(e.target.value)}
+                  className="mt-2 h-10"
+                />
               </div>
 
               <div>
@@ -187,9 +261,11 @@ tr:hover {
             {showPreview && (
               <Card className="p-6">
                 <h2 className="text-2xl font-bold mb-4">Preview</h2>
-                <div 
+                <div
                   className="border rounded-lg overflow-auto"
-                  dangerouslySetInnerHTML={{ __html: `<style>${generateCSS()}</style>${generateHTML()}` }}
+                  dangerouslySetInnerHTML={{
+                    __html: `<style>${generateCSS()}</style>${generateHTML()}`,
+                  }}
                 />
               </Card>
             )}
@@ -200,7 +276,7 @@ tr:hover {
                   <TabsTrigger value="html">HTML</TabsTrigger>
                   <TabsTrigger value="css">CSS</TabsTrigger>
                 </TabsList>
-                
+
                 <TabsContent value="html" className="space-y-4">
                   <div className="flex gap-2">
                     <Button
@@ -212,7 +288,9 @@ tr:hover {
                       Copy HTML
                     </Button>
                     <Button
-                      onClick={() => handleDownload(generateHTML(), "table.html")}
+                      onClick={() =>
+                        handleDownload(generateHTML(), "table.html")
+                      }
                       variant="outline"
                       className="flex-1"
                     >

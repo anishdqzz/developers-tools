@@ -2,6 +2,7 @@ import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useState } from "react";
@@ -12,6 +13,18 @@ const LayoutBuilder = () => {
   const { toast } = useToast();
   const [layoutType, setLayoutType] = useState("two-column");
   const [showPreview, setShowPreview] = useState(true);
+
+  // Color States
+  const [sidebarBgColor, setSidebarBgColor] = useState("#f4f4f4");
+  const [mainContentBgColor, setMainContentBgColor] = useState("#ffffff");
+  const [columnBgColor, setColumnBgColor] = useState("#f4f4f4");
+  const [headerBgColor, setHeaderBgColor] = useState("#333333");
+  const [headerTextColor, setHeaderTextColor] = useState("#ffffff");
+  const [gridItemBgColor, setGridItemBgColor] = useState(
+    "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
+  );
+  const [gridItemTextColor, setGridItemTextColor] = useState("#ffffff");
+  const [gridItemHoverScale, setGridItemHoverScale] = useState(1.05);
 
   const generateHTML = () => {
     const layouts = {
@@ -54,14 +67,14 @@ const LayoutBuilder = () => {
     </main>
   </div>
 </div>`,
-      "grid": `<div class="layout grid">
+      grid: `<div class="layout grid">
   <div class="grid-item">Item 1</div>
   <div class="grid-item">Item 2</div>
   <div class="grid-item">Item 3</div>
   <div class="grid-item">Item 4</div>
   <div class="grid-item">Item 5</div>
   <div class="grid-item">Item 6</div>
-</div>`
+</div>`,
     };
     return layouts[layoutType as keyof typeof layouts];
   };
@@ -76,14 +89,14 @@ const LayoutBuilder = () => {
 
 .sidebar {
   flex: 0 0 250px;
-  background: #f4f4f4;
+  background: ${sidebarBgColor};
   padding: 1.5rem;
   border-radius: 8px;
 }
 
 .main-content {
   flex: 1;
-  background: #fff;
+  background: ${mainContentBgColor};
   padding: 1.5rem;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
@@ -96,7 +109,7 @@ const LayoutBuilder = () => {
 }
 
 .column {
-  background: #f4f4f4;
+  background: ${columnBgColor};
   padding: 1.5rem;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
@@ -106,8 +119,8 @@ const LayoutBuilder = () => {
 }
 
 .header {
-  background: #333;
-  color: white;
+  background: ${headerBgColor};
+  color: ${headerTextColor};
   padding: 1.5rem;
   border-radius: 8px 8px 0 0;
 }
@@ -120,17 +133,17 @@ const LayoutBuilder = () => {
 
 .sidebar {
   flex: 0 0 250px;
-  background: #f4f4f4;
+  background: ${sidebarBgColor};
   padding: 1.5rem;
 }
 
 .content {
   flex: 1;
-  background: #fff;
+  background: ${mainContentBgColor};
   padding: 1.5rem;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }`,
-      "grid": `.layout.grid {
+      grid: `.layout.grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1.5rem;
@@ -138,8 +151,8 @@ const LayoutBuilder = () => {
 }
 
 .grid-item {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: ${gridItemBgColor};
+  color: ${gridItemTextColor};
   padding: 2rem;
   border-radius: 8px;
   text-align: center;
@@ -149,8 +162,8 @@ const LayoutBuilder = () => {
 }
 
 .grid-item:hover {
-  transform: scale(1.05);
-}`
+  transform: scale(${gridItemHoverScale});
+}`,
     };
     return styles[layoutType as keyof typeof styles];
   };
@@ -189,7 +202,7 @@ const LayoutBuilder = () => {
         <div className="grid lg:grid-cols-2 gap-8 max-w-7xl mx-auto">
           <Card className="p-6">
             <h2 className="text-2xl font-bold mb-6">Configuration</h2>
-            
+
             <div className="space-y-6">
               <div>
                 <Label>Layout Type</Label>
@@ -197,8 +210,11 @@ const LayoutBuilder = () => {
                   {[
                     { value: "two-column", label: "Two Column" },
                     { value: "three-column", label: "Three Column" },
-                    { value: "header-sidebar-content", label: "Header + Sidebar + Content" },
-                    { value: "grid", label: "Grid Layout" }
+                    {
+                      value: "header-sidebar-content",
+                      label: "Header + Sidebar + Content",
+                    },
+                    { value: "grid", label: "Grid Layout" },
                   ].map((layout) => (
                     <Button
                       key={layout.value}
@@ -210,6 +226,98 @@ const LayoutBuilder = () => {
                     </Button>
                   ))}
                 </div>
+              </div>
+
+              {/* Color Pickers */}
+              <div className="space-y-4">
+                {layoutType === "two-column" && (
+                  <>
+                    <Label>Sidebar Background</Label>
+                    <Input
+                      type="color"
+                      value={sidebarBgColor}
+                      onChange={(e) => setSidebarBgColor(e.target.value)}
+                      className="h-10"
+                    />
+                    <Label>Main Content Background</Label>
+                    <Input
+                      type="color"
+                      value={mainContentBgColor}
+                      onChange={(e) => setMainContentBgColor(e.target.value)}
+                      className="h-10"
+                    />
+                  </>
+                )}
+                {layoutType === "three-column" && (
+                  <>
+                    <Label>Column Background</Label>
+                    <Input
+                      type="color"
+                      value={columnBgColor}
+                      onChange={(e) => setColumnBgColor(e.target.value)}
+                      className="h-10"
+                    />
+                  </>
+                )}
+                {layoutType === "header-sidebar-content" && (
+                  <>
+                    <Label>Header Background</Label>
+                    <Input
+                      type="color"
+                      value={headerBgColor}
+                      onChange={(e) => setHeaderBgColor(e.target.value)}
+                      className="h-10"
+                    />
+                    <Label>Header Text</Label>
+                    <Input
+                      type="color"
+                      value={headerTextColor}
+                      onChange={(e) => setHeaderTextColor(e.target.value)}
+                      className="h-10"
+                    />
+                    <Label>Sidebar Background</Label>
+                    <Input
+                      type="color"
+                      value={sidebarBgColor}
+                      onChange={(e) => setSidebarBgColor(e.target.value)}
+                      className="h-10"
+                    />
+                    <Label>Main Content Background</Label>
+                    <Input
+                      type="color"
+                      value={mainContentBgColor}
+                      onChange={(e) => setMainContentBgColor(e.target.value)}
+                      className="h-10"
+                    />
+                  </>
+                )}
+                {layoutType === "grid" && (
+                  <>
+                    <Label>Grid Item Background</Label>
+                    <Input
+                      type="text"
+                      value={gridItemBgColor}
+                      onChange={(e) => setGridItemBgColor(e.target.value)}
+                      className="h-10"
+                    />
+                    <Label>Grid Item Text</Label>
+                    <Input
+                      type="color"
+                      value={gridItemTextColor}
+                      onChange={(e) => setGridItemTextColor(e.target.value)}
+                      className="h-10"
+                    />
+                    <Label>Grid Item Hover Scale</Label>
+                    <Input
+                      type="number"
+                      step={0.01}
+                      value={gridItemHoverScale}
+                      onChange={(e) =>
+                        setGridItemHoverScale(parseFloat(e.target.value))
+                      }
+                    />
+                  </>
+                )}
               </div>
 
               <Button
@@ -227,9 +335,11 @@ const LayoutBuilder = () => {
             {showPreview && (
               <Card className="p-6">
                 <h2 className="text-2xl font-bold mb-4">Preview</h2>
-                <div 
+                <div
                   className="border rounded-lg overflow-auto p-4"
-                  dangerouslySetInnerHTML={{ __html: `<style>${generateCSS()}</style>${generateHTML()}` }}
+                  dangerouslySetInnerHTML={{
+                    __html: `<style>${generateCSS()}</style>${generateHTML()}`,
+                  }}
                 />
               </Card>
             )}
@@ -240,7 +350,7 @@ const LayoutBuilder = () => {
                   <TabsTrigger value="html">HTML</TabsTrigger>
                   <TabsTrigger value="css">CSS</TabsTrigger>
                 </TabsList>
-                
+
                 <TabsContent value="html" className="space-y-4">
                   <div className="flex gap-2">
                     <Button
@@ -252,7 +362,9 @@ const LayoutBuilder = () => {
                       Copy HTML
                     </Button>
                     <Button
-                      onClick={() => handleDownload(generateHTML(), "layout.html")}
+                      onClick={() =>
+                        handleDownload(generateHTML(), "layout.html")
+                      }
                       variant="outline"
                       className="flex-1"
                     >
