@@ -4,6 +4,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useState } from "react";
 import { Copy, Download, Eye } from "lucide-react";
@@ -17,16 +18,15 @@ const TableBuilder = () => {
   const [bordered, setBordered] = useState(true);
   const [striped, setStriped] = useState(false);
   const [showPreview, setShowPreview] = useState(true);
+  const [headerBgColor, setHeaderBgColor] = useState("#f4f4f4");
+  const [textColor, setTextColor] = useState("#333333");
+  const [hoverBgColor, setHoverBgColor] = useState("#f5f5f5");
+  const [borderColor, setBorderColor] = useState("#dddddd");
+  const [stripeColor, setStripeColor] = useState("#f9f9f9");
+  const [fontFamily, setFontFamily] = useState("Arial, sans-serif");
 
   const generateHTML = () => {
-    let html = `<table${bordered ? ' class="bordered"' : ''}${striped ? ' class="striped"' : ''}>
-  <thead>
-    <tr>
-${headers.map(h => `      <th>${h}</th>`).join('\n')}
-    </tr>
-  </thead>
-  <tbody>
-`;
+    let html = `<table class="custom-table${bordered ? ' bordered' : ''}${striped ? ' striped' : ''}">\n  <thead>\n    <tr>\n${headers.map(h => `      <th>${h}</th>`).join('\n')}\n    </tr>\n  </thead>\n  <tbody>\n`;
     for (let i = 0; i < rows; i++) {
       html += '    <tr>\n';
       for (let j = 0; j < cols; j++) {
@@ -39,33 +39,34 @@ ${headers.map(h => `      <th>${h}</th>`).join('\n')}
   };
 
   const generateCSS = () => {
-    return `table {
+    return `.custom-table {
   width: 100%;
   border-collapse: collapse;
-  font-family: Arial, sans-serif;
+  font-family: ${fontFamily};
+  color: ${textColor};
 }
 
-th, td {
+.custom-table th, .custom-table td {
   padding: 12px;
   text-align: left;
 }
 
-th {
-  background-color: #f4f4f4;
+.custom-table th {
+  background-color: ${headerBgColor};
   font-weight: bold;
 }
 
-${bordered ? `table.bordered th,
-table.bordered td {
-  border: 1px solid #ddd;
+${bordered ? `.custom-table.bordered th,
+.custom-table.bordered td {
+  border: 1px solid ${borderColor};
 }` : ''}
 
-${striped ? `table.striped tbody tr:nth-child(odd) {
-  background-color: #f9f9f9;
+${striped ? `.custom-table.striped tbody tr:nth-child(odd) {
+  background-color: ${stripeColor};
 }` : ''}
 
-tr:hover {
-  background-color: #f5f5f5;
+.custom-table tbody tr:hover {
+  background-color: ${hoverBgColor};
 }`;
   };
 
@@ -151,6 +152,79 @@ tr:hover {
                     />
                   ))}
                 </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4 items-start">
+                <div>
+                  <Label htmlFor="headerBgColor">Header Color</Label>
+                  <Input
+                    id="headerBgColor"
+                    type="color"
+                    value={headerBgColor}
+                    onChange={(e) => setHeaderBgColor(e.target.value)}
+                    className="w-full mt-2"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="textColor">Text Color</Label>
+                  <Input
+                    id="textColor"
+                    type="color"
+                    value={textColor}
+                    onChange={(e) => setTextColor(e.target.value)}
+                    className="w-full mt-2"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="hoverBgColor">Hover Color</Label>
+                  <Input
+                    id="hoverBgColor"
+                    type="color"
+                    value={hoverBgColor}
+                    onChange={(e) => setHoverBgColor(e.target.value)}
+                    className="w-full mt-2"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="borderColor">Border Color</Label>
+                  <Input
+                    id="borderColor"
+                    type="color"
+                    value={borderColor}
+                    onChange={(e) => setBorderColor(e.target.value)}
+                    className="w-full mt-2"
+                    disabled={!bordered}
+                  />
+                </div>
+                {striped && (
+                  <div>
+                    <Label htmlFor="stripeColor">Stripe Color</Label>
+                    <Input
+                      id="stripeColor"
+                      type="color"
+                      value={stripeColor}
+                      onChange={(e) => setStripeColor(e.target.value)}
+                      className="w-full mt-2"
+                    />
+                  </div>
+                )}
+              </div>
+
+              <div>
+                <Label htmlFor="fontFamily">Font Family</Label>
+                <Select value={fontFamily} onValueChange={setFontFamily}>
+                  <SelectTrigger id="fontFamily" className="w-full mt-2">
+                    <SelectValue placeholder="Select a font" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Arial, sans-serif">Arial</SelectItem>
+                    <SelectItem value="'Helvetica Neue', sans-serif">Helvetica Neue</SelectItem>
+                    <SelectItem value="'Times New Roman', serif">Times New Roman</SelectItem>
+                    <SelectItem value="Georgia, serif">Georgia</SelectItem>
+                    <SelectItem value="'Courier New', monospace">Courier New</SelectItem>
+                    <SelectItem value="Verdana, sans-serif">Verdana</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
 
               <div className="space-y-2">

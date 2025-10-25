@@ -1,7 +1,14 @@
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Button } from "./ui/button";
 
 export const Hero = () => {
+  const handleExploreClick = () => {
+    const toolsSection = document.getElementById("tools");
+    if (toolsSection) {
+      toolsSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
       {/* Animated background elements */}
@@ -12,7 +19,6 @@ export const Hero = () => {
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center max-w-4xl mx-auto">
-         
           <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
             Build Faster with{" "}
             <span className="bg-gradient-primary bg-clip-text text-transparent">
@@ -28,16 +34,10 @@ export const Hero = () => {
             <Button
               size="lg"
               className="bg-gradient-primary hover:opacity-90 transition-opacity text-lg px-8 shadow-glow"
+              onClick={handleExploreClick}
             >
               Explore Tools
               <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="text-lg px-8 border-primary/50 hover:bg-primary/10"
-            >
-              View Documentation
             </Button>
           </div>
         </div>

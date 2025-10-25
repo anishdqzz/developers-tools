@@ -4,6 +4,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useState } from "react";
 import { Copy, Download, Eye } from "lucide-react";
@@ -15,34 +16,38 @@ const NavbarBuilder = () => {
   const [brandName, setBrandName] = useState("MyBrand");
   const [bgColor, setBgColor] = useState("#ffffff");
   const [textColor, setTextColor] = useState("#000000");
+  const [hoverTextColor, setHoverTextColor] = useState("#777777");
+  const [fontFamily, setFontFamily] = useState("Arial, sans-serif");
+  const [navPadding, setNavPadding] = useState(1);
   const [showPreview, setShowPreview] = useState(true);
 
   const generateHTML = () => {
-    return `<nav style="background-color: ${bgColor}; color: ${textColor}; padding: 1rem; display: flex; justify-content: space-between; align-items: center;">
-  <div class="brand" style="font-size: 1.5rem; font-weight: bold;">${brandName}</div>
-  <ul style="display: flex; list-style: none; gap: 2rem; margin: 0; padding: 0;">
-${navItems.map(item => `    <li><a href="#${item.toLowerCase()}" style="color: ${textColor}; text-decoration: none;">${item}</a></li>`).join('\n')}
+    return `<nav class="custom-nav">
+  <div class="brand">${brandName}</div>
+  <ul class="nav-links">
+${navItems.map(item => `    <li><a href="#${item.toLowerCase()}">${item}</a></li>`).join('\n')}
   </ul>
 </nav>`;
   };
 
   const generateCSS = () => {
-    return `nav {
+    return `.custom-nav {
   background-color: ${bgColor};
-  color: ${textColor};
-  padding: 1rem;
+  padding: ${navPadding}rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  font-family: ${fontFamily};
 }
 
 .brand {
   font-size: 1.5rem;
   font-weight: bold;
+  color: ${textColor};
 }
 
-nav ul {
+.nav-links {
   display: flex;
   list-style: none;
   gap: 2rem;
@@ -50,14 +55,14 @@ nav ul {
   padding: 0;
 }
 
-nav a {
+.nav-links a {
   color: ${textColor};
   text-decoration: none;
-  transition: opacity 0.3s;
+  transition: color 0.3s ease-in-out;
 }
 
-nav a:hover {
-  opacity: 0.7;
+.nav-links a:hover {
+  color: ${hoverTextColor};
 }`;
   };
 
@@ -124,7 +129,7 @@ nav a:hover {
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <Label htmlFor="bgColor">Background Color</Label>
+                  <Label htmlFor="bgColor">Background</Label>
                   <Input
                     id="bgColor"
                     type="color"
@@ -143,6 +148,47 @@ nav a:hover {
                     className="mt-2 h-10"
                   />
                 </div>
+                <div>
+                  <Label htmlFor="hoverTextColor">Hover Text Color</Label>
+                  <Input
+                    id="hoverTextColor"
+                    type="color"
+                    value={hoverTextColor}
+                    onChange={(e) => setHoverTextColor(e.target.value)}
+                    className="mt-2 h-10"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <Label htmlFor="fontFamily">Font Family</Label>
+                <Select value={fontFamily} onValueChange={setFontFamily}>
+                  <SelectTrigger id="fontFamily" className="w-full mt-2">
+                    <SelectValue placeholder="Select a font" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Arial, sans-serif">Arial</SelectItem>
+                    <SelectItem value="'Helvetica Neue', sans-serif">Helvetica Neue</SelectItem>
+                    <SelectItem value="'Times New Roman', serif">Times New Roman</SelectItem>
+                    <SelectItem value="Georgia, serif">Georgia</SelectItem>
+                    <SelectItem value="'Courier New', monospace">Courier New</SelectItem>
+                    <SelectItem value="Verdana, sans-serif">Verdana</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div>
+                <Label htmlFor="padding">Padding (rem)</Label>
+                <Input
+                  id="padding"
+                  type="number"
+                  min="0"
+                  max="5"
+                  step="0.25"
+                  value={navPadding}
+                  onChange={(e) => setNavPadding(parseFloat(e.target.value) || 0)}
+                  className="mt-2"
+                />
               </div>
 
               <div>
@@ -187,7 +233,7 @@ nav a:hover {
                 <h2 className="text-2xl font-bold mb-4">Preview</h2>
                 <div 
                   className="border rounded-lg overflow-hidden"
-                  dangerouslySetInnerHTML={{ __html: generateHTML() }}
+                  dangerouslySetInnerHTML={{ __html: `<style>${generateCSS()}</style>${generateHTML()}` }}
                 />
               </Card>
             )}

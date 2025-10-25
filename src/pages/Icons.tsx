@@ -27,6 +27,7 @@ import {
   Facebook, Instagram, Twitter, Linkedin, Youtube, Github
 } from "lucide-react";
 import { toast } from "sonner";
+import React from "react";
 
 const Icons = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -202,10 +203,21 @@ const Icons = () => {
     icon.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const copyCode = (iconName: string) => {
-    const code = `import { ${iconName} } from "lucide-react";\n\n<${iconName} className="h-6 w-6" />`;
-    navigator.clipboard.writeText(code);
-    toast.success(`${iconName} code copied!`);
+  const copyCode = (event: React.MouseEvent, iconName: string) => {
+    event.stopPropagation();
+    const card = (event.currentTarget as HTMLElement).closest('.group');
+    if (card) {
+      const svg = card.querySelector('svg');
+      if (svg) {
+        const svgClone = svg.cloneNode(true) as SVGElement;
+        svgClone.removeAttribute('class');
+        svgClone.setAttribute('width', '24');
+        svgClone.setAttribute('height', '24');
+        const svgCode = svgClone.outerHTML;
+        navigator.clipboard.writeText(svgCode);
+        toast.success(`Copied ${iconName} as SVG!`);
+      }
+    }
   };
 
   return (
@@ -214,10 +226,10 @@ const Icons = () => {
       <main className="flex-1 container mx-auto px-4 pt-24 pb-16">
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-primary bg-clip-text text-transparent">
-            Icon Library
+            SVG Icon Library
           </h1>
           <p className="text-xl text-muted-foreground mb-8">
-            Browse and copy {icons.length}+ beautiful Lucide React icons
+            Browse and copy {icons.length}+ beautiful Lucide icons as SVG for your HTML projects.
           </p>
 
           <div className="max-w-md mx-auto">
@@ -236,7 +248,7 @@ const Icons = () => {
             <Card
               key={name}
               className="p-4 hover:shadow-lg transition-all cursor-pointer group"
-              onClick={() => copyCode(name)}
+              onClick={(e) => copyCode(e, name)}
             >
               <div className="flex flex-col items-center gap-3">
                 <div className="w-12 h-12 rounded-lg bg-secondary flex items-center justify-center group-hover:bg-gradient-primary transition-all">
@@ -248,13 +260,10 @@ const Icons = () => {
                     variant="ghost"
                     size="sm"
                     className="mt-1 h-6 text-xs"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      copyCode(name);
-                    }}
+                    onClick={(e) => copyCode(e, name)}
                   >
                     <Copy className="h-3 w-3 mr-1" />
-                    Copy
+                    Copy SVG
                   </Button>
                 </div>
               </div>

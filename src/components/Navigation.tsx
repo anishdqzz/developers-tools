@@ -1,16 +1,33 @@
-import { Code2, Menu, X, Home } from "lucide-react";
+import { Code2, Menu, X, Home, Sun, Moon } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
+import { useTheme } from "./ThemeProvider";
 
 export const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { theme, toggleTheme } = useTheme();
+
+  const handleHomeClick = () => {
+    setIsOpen(false);
+    if (window.location.pathname === "/") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
+  const handleToolsClick = () => {
+    setIsOpen(false);
+    const toolsSection = document.getElementById("tools");
+    if (toolsSection) {
+      toolsSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
-          <Link to="/" className="flex items-center gap-2">
+          <Link to="/" onClick={handleHomeClick} className="flex items-center gap-2">
             <Code2 className="h-8 w-8 text-primary" />
             <span className="text-xl font-bold bg-gradient-primary bg-clip-text text-transparent">
               OopsDev
@@ -18,33 +35,25 @@ export const Navigation = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
-            <Link to="/" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors">
+          <div className="hidden md:flex items-center gap-6">
+            <Link to="/" onClick={handleHomeClick} className="flex items-center gap-2 text-foreground hover:text-primary transition-colors">
               <Home className="h-4 w-4" />
               <span>Home</span>
             </Link>
-            <Link to="/icons" className="text-foreground hover:text-primary transition-colors">
-              Icons
-            </Link>
-            <Link to="/ui-components" className="text-foreground hover:text-primary transition-colors">
-              Components
-            </Link>
-            <a href="#about" className="text-foreground hover:text-primary transition-colors">
-              About
+            <a href="#tools" onClick={handleToolsClick} className="text-foreground hover:text-primary transition-colors">
+              Tools
             </a>
             <Link to="/contact" className="text-foreground hover:text-primary transition-colors">
               Contact
             </Link>
             <Link to="/auth">
-              <Button variant="outline" className="mr-2">
+              <Button variant="outline">
                 Login
               </Button>
             </Link>
-            <Link to="/contact">
-              <Button className="bg-gradient-primary hover:opacity-90 transition-opacity">
-                Get Started
-              </Button>
-            </Link>
+            <Button variant="ghost" size="icon" onClick={toggleTheme}>
+              {theme === 'light' ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
+            </Button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -62,31 +71,17 @@ export const Navigation = () => {
             <Link
               to="/"
               className="flex items-center gap-2 text-foreground hover:text-primary transition-colors"
-              onClick={() => setIsOpen(false)}
+              onClick={handleHomeClick}
             >
               <Home className="h-4 w-4" />
               <span>Home</span>
             </Link>
-            <Link
-              to="/icons"
-              className="block text-foreground hover:text-primary transition-colors"
-              onClick={() => setIsOpen(false)}
-            >
-              Icons
-            </Link>
-            <Link
-              to="/ui-components"
-              className="block text-foreground hover:text-primary transition-colors"
-              onClick={() => setIsOpen(false)}
-            >
-              Components
-            </Link>
             <a
-              href="#about"
+              href="#tools"
               className="block text-foreground hover:text-primary transition-colors"
-              onClick={() => setIsOpen(false)}
+              onClick={handleToolsClick}
             >
-              About
+              Tools
             </a>
             <Link
               to="/contact"
@@ -95,16 +90,16 @@ export const Navigation = () => {
             >
               Contact
             </Link>
-            <Link to="/auth" onClick={() => setIsOpen(false)}>
-              <Button variant="outline" className="w-full mb-2">
-                Login
+            <div className="flex items-center justify-between">
+              <Link to="/auth" onClick={() => setIsOpen(false)} className="w-full pr-2">
+                <Button variant="outline" className="w-full">
+                  Login
+                </Button>
+              </Link>
+              <Button variant="ghost" size="icon" onClick={toggleTheme}>
+                {theme === 'light' ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
               </Button>
-            </Link>
-            <Link to="/contact" onClick={() => setIsOpen(false)}>
-              <Button className="w-full bg-gradient-primary hover:opacity-90 transition-opacity">
-                Get Started
-              </Button>
-            </Link>
+            </div>
           </div>
         )}
       </div>

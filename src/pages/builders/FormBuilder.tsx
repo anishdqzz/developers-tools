@@ -4,6 +4,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useState } from "react";
 import { Copy, Download, Eye } from "lucide-react";
@@ -18,6 +19,10 @@ const FormBuilder = () => {
     { name: "message", label: "Message", type: "textarea", required: false },
   ]);
   const [showPreview, setShowPreview] = useState(true);
+  const [bgColor, setBgColor] = useState("#ffffff");
+  const [textColor, setTextColor] = useState("#333333");
+  const [fontFamily, setFontFamily] = useState("Arial, sans-serif");
+  const [buttonColor, setButtonColor] = useState("#4CAF50");
 
   const generateHTML = () => {
     return `<form class="contact-form">
@@ -43,14 +48,15 @@ ${fields.map(field => {
   max-width: 500px;
   margin: 0 auto;
   padding: 2rem;
-  background: #fff;
+  background: ${bgColor};
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  font-family: ${fontFamily};
 }
 
 .contact-form h2 {
   margin-bottom: 1.5rem;
-  color: #333;
+  color: ${textColor};
 }
 
 .form-group {
@@ -61,7 +67,7 @@ ${fields.map(field => {
   display: block;
   margin-bottom: 0.5rem;
   font-weight: 500;
-  color: #555;
+  color: ${textColor};
 }
 
 .form-group input,
@@ -72,12 +78,14 @@ ${fields.map(field => {
   border-radius: 4px;
   font-size: 1rem;
   transition: border-color 0.3s;
+  background-color: #fff;
+  color: #333;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: #4CAF50;
+  border-color: ${buttonColor};
 }
 
 .form-group textarea {
@@ -88,7 +96,7 @@ ${fields.map(field => {
 button[type="submit"] {
   width: 100%;
   padding: 0.75rem;
-  background: #4CAF50;
+  background: ${buttonColor};
   color: white;
   border: none;
   border-radius: 4px;
@@ -98,7 +106,7 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-  background: #45a049;
+  opacity: 0.9;
 }`;
   };
 
@@ -160,6 +168,56 @@ button[type="submit"]:hover {
                   onChange={(e) => setFormTitle(e.target.value)}
                   className="mt-2"
                 />
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="bgColor">Background</Label>
+                  <Input
+                    id="bgColor"
+                    type="color"
+                    value={bgColor}
+                    onChange={(e) => setBgColor(e.target.value)}
+                    className="w-full mt-2"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="textColor">Text Color</Label>
+                  <Input
+                    id="textColor"
+                    type="color"
+                    value={textColor}
+                    onChange={(e) => setTextColor(e.target.value)}
+                    className="w-full mt-2"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="buttonColor">Button Color</Label>
+                  <Input
+                    id="buttonColor"
+                    type="color"
+                    value={buttonColor}
+                    onChange={(e) => setButtonColor(e.target.value)}
+                    className="w-full mt-2"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <Label htmlFor="fontFamily">Font Family</Label>
+                <Select value={fontFamily} onValueChange={setFontFamily}>
+                  <SelectTrigger id="fontFamily" className="w-full mt-2">
+                    <SelectValue placeholder="Select a font" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Arial, sans-serif">Arial</SelectItem>
+                    <SelectItem value="'Helvetica Neue', sans-serif">Helvetica Neue</SelectItem>
+                    <SelectItem value="'Times New Roman', serif">Times New Roman</SelectItem>
+                    <SelectItem value="Georgia, serif">Georgia</SelectItem>
+                    <SelectItem value="'Courier New', monospace">Courier New</SelectItem>
+                    <SelectItem value="Verdana, sans-serif">Verdana</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
 
               <div>

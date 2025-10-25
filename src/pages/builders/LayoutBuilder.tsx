@@ -3,6 +3,8 @@ import { Footer } from "@/components/Footer";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useState } from "react";
 import { Copy, Download, Eye } from "lucide-react";
@@ -12,6 +14,10 @@ const LayoutBuilder = () => {
   const { toast } = useToast();
   const [layoutType, setLayoutType] = useState("two-column");
   const [showPreview, setShowPreview] = useState(true);
+  const [bgColor, setBgColor] = useState("#f4f4f4");
+  const [textColor, setTextColor] = useState("#333333");
+  const [fontFamily, setFontFamily] = useState("Arial, sans-serif");
+  const [justifyContent, setJustifyContent] = useState("flex-start");
 
   const generateHTML = () => {
     const layouts = {
@@ -72,11 +78,14 @@ const LayoutBuilder = () => {
   display: flex;
   gap: 2rem;
   min-height: 400px;
+  justify-content: ${justifyContent};
 }
 
 .sidebar {
   flex: 0 0 250px;
-  background: #f4f4f4;
+  background: ${bgColor};
+  color: ${textColor};
+  font-family: ${fontFamily};
   padding: 1.5rem;
   border-radius: 8px;
 }
@@ -84,6 +93,8 @@ const LayoutBuilder = () => {
 .main-content {
   flex: 1;
   background: #fff;
+  color: ${textColor};
+  font-family: ${fontFamily};
   padding: 1.5rem;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
@@ -93,16 +104,20 @@ const LayoutBuilder = () => {
   grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
   min-height: 300px;
+  justify-content: ${justifyContent};
 }
 
 .column {
-  background: #f4f4f4;
+  background: ${bgColor};
+  color: ${textColor};
+  font-family: ${fontFamily};
   padding: 1.5rem;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }`,
       "header-sidebar-content": `.layout.header-sidebar-content {
   min-height: 500px;
+  font-family: ${fontFamily};
 }
 
 .header {
@@ -120,13 +135,15 @@ const LayoutBuilder = () => {
 
 .sidebar {
   flex: 0 0 250px;
-  background: #f4f4f4;
+  background: ${bgColor};
+  color: ${textColor};
   padding: 1.5rem;
 }
 
 .content {
   flex: 1;
   background: #fff;
+  color: ${textColor};
   padding: 1.5rem;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }`,
@@ -138,8 +155,9 @@ const LayoutBuilder = () => {
 }
 
 .grid-item {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: ${bgColor};
+  color: ${textColor};
+  font-family: ${fontFamily};
   padding: 2rem;
   border-radius: 8px;
   text-align: center;
@@ -210,6 +228,63 @@ const LayoutBuilder = () => {
                     </Button>
                   ))}
                 </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="bgColor">Background Color</Label>
+                  <Input
+                    id="bgColor"
+                    type="color"
+                    value={bgColor}
+                    onChange={(e) => setBgColor(e.target.value)}
+                    className="w-full mt-2"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="textColor">Text Color</Label>
+                  <Input
+                    id="textColor"
+                    type="color"
+                    value={textColor}
+                    onChange={(e) => setTextColor(e.target.value)}
+                    className="w-full mt-2"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <Label htmlFor="fontFamily">Font Family</Label>
+                <Select value={fontFamily} onValueChange={setFontFamily}>
+                  <SelectTrigger id="fontFamily" className="w-full mt-2">
+                    <SelectValue placeholder="Select a font" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Arial, sans-serif">Arial</SelectItem>
+                    <SelectItem value="'Helvetica Neue', sans-serif">Helvetica Neue</SelectItem>
+                    <SelectItem value="'Times New Roman', serif">Times New Roman</SelectItem>
+                    <SelectItem value="Georgia, serif">Georgia</SelectItem>
+                    <SelectItem value="'Courier New', monospace">Courier New</SelectItem>
+                    <SelectItem value="Verdana, sans-serif">Verdana</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div>
+                <Label htmlFor="justifyContent">Justify Content</Label>
+                <Select value={justifyContent} onValueChange={setJustifyContent}>
+                  <SelectTrigger id="justifyContent" className="w-full mt-2">
+                    <SelectValue placeholder="Select justification" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="flex-start">Flex Start</SelectItem>
+                    <SelectItem value="flex-end">Flex End</SelectItem>
+                    <SelectItem value="center">Center</SelectItem>
+                    <SelectItem value="space-between">Space Between</SelectItem>
+                    <SelectItem value="space-around">Space Around</SelectItem>
+                    <SelectItem value="space-evenly">Space Evenly</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
 
               <Button
