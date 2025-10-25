@@ -1,22 +1,44 @@
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
-import { Card } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useState } from "react";
-import { Copy, Download, Eye } from "lucide-react";
+import { Copy, Download, Eye, Settings } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Sidebar } from "@/components/ui/sidebar";
 
 const CardBuilder = () => {
   const { toast } = useToast();
   const [cardTitle, setCardTitle] = useState("Card Title");
-  const [cardDescription, setCardDescription] = useState("This is a card description");
-  const [cardImage, setCardImage] = useState("https://via.placeholder.com/300x200");
+  const [cardDescription, setCardDescription] = useState(
+    "This is a card description"
+  );
+  const [imageUrl, setImageUrl] = useState(
+    "https://via.placeholder.com/300x200"
+  );
+  const [cardImage, setCardImage] = useState(
+    "https://via.placeholder.com/300x200"
+  );
   const [buttonText, setButtonText] = useState("Learn More");
   const [bgColor, setBgColor] = useState("#ffffff");
+  const [textAlign, setTextAlign] = useState<"left" | "center" | "right">(
+    "left"
+  );
   const [showPreview, setShowPreview] = useState(true);
+
+  const handleAddImage = () => {
+    setCardImage(imageUrl);
+  };
 
   const generateHTML = () => {
     return `<div class="card">
@@ -52,6 +74,7 @@ const CardBuilder = () => {
 
 .card-content {
   padding: 1.5rem;
+  text-align: ${textAlign};
 }
 
 .card-title {
@@ -102,156 +125,179 @@ const CardBuilder = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <Navigation />
-      <main className="flex-1 container mx-auto px-4 pt-24 pb-16">
-        <div className="text-center mb-8">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-primary bg-clip-text text-transparent">
-            Card Builder
-          </h1>
-          <p className="text-xl text-muted-foreground">
-            Design custom card components
-          </p>
-        </div>
-
-        <div className="grid lg:grid-cols-2 gap-8 max-w-7xl mx-auto">
-          <Card className="p-6">
-            <h2 className="text-2xl font-bold mb-6">Configuration</h2>
-            
-            <div className="space-y-6">
-              <div>
-                <Label htmlFor="title">Card Title</Label>
-                <Input
-                  id="title"
-                  value={cardTitle}
-                  onChange={(e) => setCardTitle(e.target.value)}
-                  className="mt-2"
-                />
-              </div>
-
-              <div>
-                <Label htmlFor="description">Description</Label>
-                <Input
-                  id="description"
-                  value={cardDescription}
-                  onChange={(e) => setCardDescription(e.target.value)}
-                  className="mt-2"
-                />
-              </div>
-
-              <div>
-                <Label htmlFor="image">Image URL</Label>
+    <div className="flex h-screen bg-background">
+      <Sidebar>
+        <Card className="w-full">
+          <CardHeader>
+            <CardTitle className="flex items-center">
+              <Settings className="mr-2" />
+              Configuration
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="title">Card Title</Label>
+              <Input
+                id="title"
+                value={cardTitle}
+                onChange={(e) => setCardTitle(e.target.value)}
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="description">Description</Label>
+              <Input
+                id="description"
+                value={cardDescription}
+                onChange={(e) => setCardDescription(e.target.value)}
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="image">Image URL</Label>
+              <div className="flex items-center space-x-2">
                 <Input
                   id="image"
-                  value={cardImage}
-                  onChange={(e) => setCardImage(e.target.value)}
-                  className="mt-2"
+                  value={imageUrl}
+                  onChange={(e) => setImageUrl(e.target.value)}
                 />
+                <Button onClick={handleAddImage} size="sm">
+                  Add
+                </Button>
               </div>
-
-              <div>
-                <Label htmlFor="button">Button Text</Label>
-                <Input
-                  id="button"
-                  value={buttonText}
-                  onChange={(e) => setButtonText(e.target.value)}
-                  className="mt-2"
-                />
-              </div>
-
-              <div>
-                <Label htmlFor="bgColor">Background Color</Label>
-                <Input
-                  id="bgColor"
-                  type="color"
-                  value={bgColor}
-                  onChange={(e) => setBgColor(e.target.value)}
-                  className="mt-2 h-10"
-                />
-              </div>
-
-              <Button
-                onClick={() => setShowPreview(!showPreview)}
-                variant="outline"
-                className="w-full"
-              >
-                <Eye className="mr-2 h-4 w-4" />
-                {showPreview ? "Hide" : "Show"} Preview
-              </Button>
             </div>
-          </Card>
-
-          <div className="space-y-6">
+            <div className="space-y-2">
+              <Label htmlFor="button">Button Text</Label>
+              <Input
+                id="button"
+                value={buttonText}
+                onChange={(e) => setButtonText(e.target.value)}
+              />
+            </div>
+            <div className="space-y-2">
+              <Label>Text Alignment</Label>
+              <Select
+                onValueChange={(value: "left" | "center" | "right") =>
+                  setTextAlign(value)
+                }
+                defaultValue={textAlign}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Alignment" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="left">Left</SelectItem>
+                  <SelectItem value="center">Center</SelectItem>
+                  <SelectItem value="right">Right</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="bgColor">Background Color</Label>
+              <Input
+                id="bgColor"
+                type="color"
+                value={bgColor}
+                onChange={(e) => setBgColor(e.target.value)}
+                className="h-10"
+              />
+            </div>
+          </CardContent>
+        </Card>
+      </Sidebar>
+      <div className="flex-1 flex flex-col">
+        <Navigation />
+        <main className="flex-1 p-8 overflow-auto">
+          <div className="flex justify-end mb-4">
+            <Button
+              onClick={() => setShowPreview(!showPreview)}
+              variant="outline"
+            >
+              <Eye className="mr-2 h-4 w-4" />
+              {showPreview ? "Hide" : "Show"} Preview
+            </Button>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {showPreview && (
-              <Card className="p-6">
-                <h2 className="text-2xl font-bold mb-4">Preview</h2>
-                <div 
-                  className="flex justify-center"
-                  dangerouslySetInnerHTML={{ __html: `<style>${generateCSS()}</style>${generateHTML()}` }}
-                />
+              <Card>
+                <CardHeader>
+                  <CardTitle>Preview</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div
+                    className="flex justify-center items-center h-full"
+                    dangerouslySetInnerHTML={{
+                      __html: `<style>${generateCSS()}</style>${generateHTML()}`,
+                    }}
+                  />
+                </CardContent>
               </Card>
             )}
-
-            <Card className="p-6">
-              <Tabs defaultValue="html">
-                <TabsList className="grid w-full grid-cols-2">
-                  <TabsTrigger value="html">HTML</TabsTrigger>
-                  <TabsTrigger value="css">CSS</TabsTrigger>
-                </TabsList>
-                
-                <TabsContent value="html" className="space-y-4">
-                  <div className="flex gap-2">
-                    <Button
-                      onClick={() => handleCopy(generateHTML())}
-                      variant="outline"
-                      className="flex-1"
-                    >
-                      <Copy className="mr-2 h-4 w-4" />
-                      Copy HTML
-                    </Button>
-                    <Button
-                      onClick={() => handleDownload(generateHTML(), "card.html")}
-                      variant="outline"
-                      className="flex-1"
-                    >
-                      <Download className="mr-2 h-4 w-4" />
-                      Download
-                    </Button>
-                  </div>
-                  <pre className="bg-muted p-4 rounded-lg overflow-x-auto text-sm">
-                    <code>{generateHTML()}</code>
-                  </pre>
-                </TabsContent>
-
-                <TabsContent value="css" className="space-y-4">
-                  <div className="flex gap-2">
-                    <Button
-                      onClick={() => handleCopy(generateCSS())}
-                      variant="outline"
-                      className="flex-1"
-                    >
-                      <Copy className="mr-2 h-4 w-4" />
-                      Copy CSS
-                    </Button>
-                    <Button
-                      onClick={() => handleDownload(generateCSS(), "card.css")}
-                      variant="outline"
-                      className="flex-1"
-                    >
-                      <Download className="mr-2 h-4 w-4" />
-                      Download
-                    </Button>
-                  </div>
-                  <pre className="bg-muted p-4 rounded-lg overflow-x-auto text-sm">
-                    <code>{generateCSS()}</code>
-                  </pre>
-                </TabsContent>
-              </Tabs>
+            <Card>
+              <CardHeader>
+                <CardTitle>Code</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <Tabs defaultValue="html">
+                  <TabsList className="grid w-full grid-cols-2">
+                    <TabsTrigger value="html">HTML</TabsTrigger>
+                    <TabsTrigger value="css">CSS</TabsTrigger>
+                  </TabsList>
+                  <TabsContent value="html" className="mt-4">
+                    <div className="flex gap-2 mb-4">
+                      <Button
+                        onClick={() => handleCopy(generateHTML())}
+                        variant="outline"
+                        className="flex-1"
+                      >
+                        <Copy className="mr-2 h-4 w-4" />
+                        Copy
+                      </Button>
+                      <Button
+                        onClick={() =>
+                          handleDownload(generateHTML(), "card.html")
+                        }
+                        variant="outline"
+                        className="flex-1"
+                      >
+                        <Download className="mr-2 h-4 w-4" />
+                        Download
+                      </Button>
+                    </div>
+                    <pre className="bg-muted p-4 rounded-lg overflow-x-auto text-sm">
+                      <code>{generateHTML()}</code>
+                    </pre>
+                  </TabsContent>
+                  <TabsContent value="css" className="mt-4">
+                    <div className="flex gap-2 mb-4">
+                      <Button
+                        onClick={() => handleCopy(generateCSS())}
+                        variant="outline"
+                        className="flex-1"
+                      >
+                        <Copy className="mr-2 h-4 w-4" />
+                        Copy
+                      </Button>
+                      <Button
+                        onClick={() =>
+                          handleDownload(generateCSS(), "card.css")
+                        }
+                        variant="outline"
+                        className="flex-1"
+                      >
+                        <Download className="mr-2 h-4 w-4" />
+                        Download
+                      </Button>
+                    </div>
+                    <pre className="bg-muted p-4 rounded-lg overflow-x-auto text-sm">
+                      <code>{generateCSS()}</code>
+                    </pre>
+                  </TabsContent>
+                </Tabs>
+              </CardContent>
             </Card>
           </div>
-        </div>
-      </main>
-      <Footer />
+        </main>
+        <Footer />
+      </div>
     </div>
   );
 };
