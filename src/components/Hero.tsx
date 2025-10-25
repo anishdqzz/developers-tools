@@ -12,11 +12,7 @@ export const Hero = () => {
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center max-w-4xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary border border-border mb-8 animate-glow">
-            <Sparkles className="h-4 w-4 text-primary" />
-            <span className="text-sm font-mono">Your Complete Web Dev Arsenal</span>
-          </div>
-
+         
           <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
             Build Faster with{" "}
             <span className="bg-gradient-primary bg-clip-text text-transparent">
@@ -43,22 +39,6 @@ export const Hero = () => {
             >
               View Documentation
             </Button>
-          </div>
-
-          {/* Stats */}
-          <div className="grid grid-cols-3 gap-8 mt-20 max-w-2xl mx-auto">
-            <div>
-              <div className="text-3xl md:text-4xl font-bold text-primary">50+</div>
-              <div className="text-muted-foreground mt-2">Dev Tools</div>
-            </div>
-            <div>
-              <div className="text-3xl md:text-4xl font-bold text-primary">10+</div>
-              <div className="text-muted-foreground mt-2">Categories</div>
-            </div>
-            <div>
-              <div className="text-3xl md:text-4xl font-bold text-primary">100%</div>
-              <div className="text-muted-foreground mt-2">Free</div>
-            </div>
           </div>
         </div>
       </div>

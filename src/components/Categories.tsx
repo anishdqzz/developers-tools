@@ -6,37 +6,29 @@ const categories = [
     icon: Code,
     title: "HTML Tools",
     description: "HTML generators, validators, and formatters",
-    count: "12 tools",
   },
   {
     icon: Palette,
-    title: "CSS Utilities",
-    description: "Gradient generators, color pickers, animations",
-    count: "15 tools",
+    title: "CSS Tools",
+    description: "propertys, animations",
   },
   {
     icon: Braces,
     title: "JavaScript",
     description: "Code minifiers, beautifiers, and validators",
-    count: "18 tools",
+
   },
   {
     icon: Layers,
     title: "React Helpers",
     description: "Component generators and React-specific utilities",
-    count: "10 tools",
-  },
-  {
-    icon: Database,
-    title: "Data Tools",
-    description: "JSON formatters, converters, and validators",
-    count: "8 tools",
+  
   },
   {
     icon: Wand2,
     title: "Generators",
     description: "Lorem ipsum, icons, images, and more",
-    count: "14 tools",
+  
   },
 ];
 
@@ -74,7 +66,7 @@ export const Categories = () => {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-sm text-primary font-mono">{category.count}</div>
+                  <div className="text-sm text-primary font-mono"></div>
                 </CardContent>
               </Card>
             );

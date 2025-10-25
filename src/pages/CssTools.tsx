@@ -74,24 +74,20 @@ const CssTools = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Navigation />
-      
+
       <main className="flex-1 pt-24 pb-12">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             {/* Header */}
             <div className="text-center mb-12">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary border border-border mb-6">
-                <Sparkles className="h-4 w-4 text-primary" />
-                <span className="text-sm font-mono">AI-Powered CSS Generator</span>
-              </div>
-              
+
               <h1 className="text-4xl md:text-5xl font-bold mb-4">
                 CSS{" "}
                 <span className="bg-gradient-primary bg-clip-text text-transparent">
                   Generator
                 </span>
               </h1>
-              
+
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
                 Paste your HTML code and let AI generate beautiful, modern CSS styles automatically
               </p>
@@ -119,8 +115,8 @@ const CssTools = () => {
                     placeholder="<div class='container'>&#10;  <h1>Hello World</h1>&#10;  <p>Your content here...</p>&#10;</div>"
                     className="font-mono text-sm min-h-[400px] bg-secondary border-border"
                   />
-                  
-                  <Button 
+
+                  <Button
                     onClick={handleGenerateCSS}
                     disabled={isGenerating || !htmlCode.trim()}
                     className="w-full bg-gradient-primary hover:opacity-90 transition-opacity"
@@ -160,7 +156,7 @@ const CssTools = () => {
                     placeholder="Your generated CSS will appear here..."
                     className="font-mono text-sm min-h-[400px] bg-secondary border-border"
                   />
-                  
+
                   <div className="flex gap-2">
                     <Button
                       onClick={handleCopyCSS}
