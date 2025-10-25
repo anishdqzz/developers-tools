@@ -23,18 +23,26 @@ export const Navigation = () => {
               <Home className="h-4 w-4" />
               <span>Home</span>
             </Link>
-            <Link to="/#featured-tools" className="text-foreground hover:text-primary transition-colors">
-              Tools
+            <Link to="/icons" className="text-foreground hover:text-primary transition-colors">
+              Icons
             </Link>
-            <Link to="/contact#about" className="text-foreground hover:text-primary transition-colors">
+            <Link to="/ui-components" className="text-foreground hover:text-primary transition-colors">
+              Components
+            </Link>
+            <a href="#about" className="text-foreground hover:text-primary transition-colors">
               About
-            </Link>
+            </a>
             <Link to="/contact" className="text-foreground hover:text-primary transition-colors">
               Contact
             </Link>
             <Link to="/auth">
               <Button variant="outline" className="mr-2">
                 Login
+              </Button>
+            </Link>
+            <Link to="/contact">
+              <Button className="bg-gradient-primary hover:opacity-90 transition-opacity">
+                Get Started
               </Button>
             </Link>
           </div>
@@ -60,19 +68,26 @@ export const Navigation = () => {
               <span>Home</span>
             </Link>
             <Link
-              to="/#featured-tools"
+              to="/icons"
               className="block text-foreground hover:text-primary transition-colors"
               onClick={() => setIsOpen(false)}
             >
-              Tools
+              Icons
             </Link>
             <Link
-              to="/contact#about"
+              to="/ui-components"
+              className="block text-foreground hover:text-primary transition-colors"
+              onClick={() => setIsOpen(false)}
+            >
+              Components
+            </Link>
+            <a
+              href="#about"
               className="block text-foreground hover:text-primary transition-colors"
               onClick={() => setIsOpen(false)}
             >
               About
-            </Link>
+            </a>
             <Link
               to="/contact"
               className="block text-foreground hover:text-primary transition-colors"
@@ -83,6 +98,11 @@ export const Navigation = () => {
             <Link to="/auth" onClick={() => setIsOpen(false)}>
               <Button variant="outline" className="w-full mb-2">
                 Login
+              </Button>
+            </Link>
+            <Link to="/contact" onClick={() => setIsOpen(false)}>
+              <Button className="w-full bg-gradient-primary hover:opacity-90 transition-opacity">
+                Get Started
               </Button>
             </Link>
           </div>
