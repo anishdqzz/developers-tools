@@ -45,7 +45,7 @@ export const FeaturedTools = () => {
   };
 
   return (
-    <section id="featured-tools" className="py-24 bg-gradient-secondary">
+    <section id="tools" className="py-24 bg-gradient-secondary">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
