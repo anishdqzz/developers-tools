@@ -15,20 +15,19 @@ const NavbarBuilder = () => {
   const [brandName, setBrandName] = useState("MyBrand");
   const [bgColor, setBgColor] = useState("#ffffff");
   const [textColor, setTextColor] = useState("#000000");
-  const [hoverTextColor, setHoverTextColor] = useState("#999999");
   const [showPreview, setShowPreview] = useState(true);
 
   const generateHTML = () => {
-    return `<nav class="navbar">
-  <div class="brand">${brandName}</div>
-  <ul>
-${navItems.map(item => `    <li><a href="#${item.toLowerCase()}">${item}</a></li>`).join('\n')}
+    return `<nav style="background-color: ${bgColor}; color: ${textColor}; padding: 1rem; display: flex; justify-content: space-between; align-items: center;">
+  <div class="brand" style="font-size: 1.5rem; font-weight: bold;">${brandName}</div>
+  <ul style="display: flex; list-style: none; gap: 2rem; margin: 0; padding: 0;">
+${navItems.map(item => `    <li><a href="#${item.toLowerCase()}" style="color: ${textColor}; text-decoration: none;">${item}</a></li>`).join('\n')}
   </ul>
 </nav>`;
   };
 
   const generateCSS = () => {
-    return `.navbar {
+    return `nav {
   background-color: ${bgColor};
   color: ${textColor};
   padding: 1rem;
@@ -43,7 +42,7 @@ ${navItems.map(item => `    <li><a href="#${item.toLowerCase()}">${item}</a></li
   font-weight: bold;
 }
 
-.navbar ul {
+nav ul {
   display: flex;
   list-style: none;
   gap: 2rem;
@@ -51,14 +50,14 @@ ${navItems.map(item => `    <li><a href="#${item.toLowerCase()}">${item}</a></li
   padding: 0;
 }
 
-.navbar a {
+nav a {
   color: ${textColor};
   text-decoration: none;
-  transition: color 0.3s;
+  transition: opacity 0.3s;
 }
 
-.navbar a:hover {
-  color: ${hoverTextColor};
+nav a:hover {
+  opacity: 0.7;
 }`;
   };
 
@@ -125,7 +124,7 @@ ${navItems.map(item => `    <li><a href="#${item.toLowerCase()}">${item}</a></li
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <Label htmlFor="bgColor">Background</Label>
+                  <Label htmlFor="bgColor">Background Color</Label>
                   <Input
                     id="bgColor"
                     type="color"
@@ -135,7 +134,7 @@ ${navItems.map(item => `    <li><a href="#${item.toLowerCase()}">${item}</a></li
                   />
                 </div>
                 <div>
-                  <Label htmlFor="textColor">Text</Label>
+                  <Label htmlFor="textColor">Text Color</Label>
                   <Input
                     id="textColor"
                     type="color"
@@ -144,17 +143,6 @@ ${navItems.map(item => `    <li><a href="#${item.toLowerCase()}">${item}</a></li
                     className="mt-2 h-10"
                   />
                 </div>
-              </div>
-              
-              <div>
-                <Label htmlFor="hoverTextColor">Hover Text</Label>
-                <Input
-                  id="hoverTextColor"
-                  type="color"
-                  value={hoverTextColor}
-                  onChange={(e) => setHoverTextColor(e.target.value)}
-                  className="mt-2 h-10"
-                />
               </div>
 
               <div>
@@ -199,7 +187,7 @@ ${navItems.map(item => `    <li><a href="#${item.toLowerCase()}">${item}</a></li
                 <h2 className="text-2xl font-bold mb-4">Preview</h2>
                 <div 
                   className="border rounded-lg overflow-hidden"
-                  dangerouslySetInnerHTML={{ __html: `<style>${generateCSS()}</style>${generateHTML()}` }}
+                  dangerouslySetInnerHTML={{ __html: generateHTML() }}
                 />
               </Card>
             )}

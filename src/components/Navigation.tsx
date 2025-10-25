@@ -13,7 +13,7 @@ export const Navigation = () => {
           <Link to="/" className="flex items-center gap-2">
             <Code2 className="h-8 w-8 text-primary" />
             <span className="text-xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-              OopsDev
+              DevToolKit
             </span>
           </Link>
 

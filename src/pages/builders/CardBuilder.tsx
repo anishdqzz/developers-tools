@@ -8,35 +8,14 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useState } from "react";
 import { Copy, Download, Eye } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 
 const CardBuilder = () => {
   const { toast } = useToast();
   const [cardTitle, setCardTitle] = useState("Card Title");
-  const [cardDescription, setCardDescription] = useState(
-    "This is a card description"
-  );
-  const [cardImage, setCardImage] = useState(
-    "https://via.placeholder.com/300x200"
-  );
+  const [cardDescription, setCardDescription] = useState("This is a card description");
+  const [cardImage, setCardImage] = useState("https://via.placeholder.com/300x200");
   const [buttonText, setButtonText] = useState("Learn More");
   const [bgColor, setBgColor] = useState("#ffffff");
-  const [textColor, setTextColor] = useState("#666666");
-  const [buttonColor, setButtonColor] = useState("#4CAF50");
-  const [buttonTextColor, setButtonTextColor] = useState("#ffffff");
-  const [hoverBgColor, setHoverBgColor] = useState("#f9f9f9");
-  const [hoverTextColor, setHoverTextColor] = useState("#333333");
-  const [buttonHoverColor, setButtonHoverColor] = useState("#45a049");
-  const [buttonHoverTextColor, setButtonHoverTextColor] = useState("#ffffff");
-  const [justifyContent, setJustifyContent] = useState("space-between");
-  const [alignItems, setAlignItems] = useState("center");
-  const [flexDirection, setFlexDirection] = useState("column");
   const [showPreview, setShowPreview] = useState(true);
 
   const generateHTML = () => {
@@ -53,19 +32,16 @@ const CardBuilder = () => {
   const generateCSS = () => {
     return `.card {
   background: ${bgColor};
-  color: ${textColor};
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   max-width: 350px;
-  transition: transform 0.3s, box-shadow 0.3s, background 0.3s, color 0.3s;
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .card:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
-  background: ${hoverBgColor};
-  color: ${hoverTextColor};
 }
 
 .card-image {
@@ -76,38 +52,34 @@ const CardBuilder = () => {
 
 .card-content {
   padding: 1.5rem;
-  display: flex;
-  flex-direction: ${flexDirection};
-  justify-content: ${justifyContent};
-  align-items: ${alignItems};
 }
 
 .card-title {
   font-size: 1.5rem;
   font-weight: bold;
   margin-bottom: 0.75rem;
-  color: inherit;
+  color: #333;
 }
 
 .card-description {
+  color: #666;
   line-height: 1.6;
   margin-bottom: 1rem;
 }
 
 .card-button {
-  background: ${buttonColor};
-  color: ${buttonTextColor};
+  background: #4CAF50;
+  color: white;
   border: none;
   padding: 0.75rem 1.5rem;
   border-radius: 4px;
   cursor: pointer;
   font-size: 1rem;
-  transition: background 0.3s, color 0.3s;
+  transition: background 0.3s;
 }
 
 .card-button:hover {
-  background: ${buttonHoverColor};
-  color: ${buttonHoverTextColor};
+  background: #45a049;
 }`;
   };
 
@@ -145,7 +117,7 @@ const CardBuilder = () => {
         <div className="grid lg:grid-cols-2 gap-8 max-w-7xl mx-auto">
           <Card className="p-6">
             <h2 className="text-2xl font-bold mb-6">Configuration</h2>
-
+            
             <div className="space-y-6">
               <div>
                 <Label htmlFor="title">Card Title</Label>
@@ -187,155 +159,15 @@ const CardBuilder = () => {
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <Label htmlFor="bgColor">Background</Label>
-                  <Input
-                    id="bgColor"
-                    type="color"
-                    value={bgColor}
-                    onChange={(e) => setBgColor(e.target.value)}
-                    className="mt-2 h-10"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="textColor">Text</Label>
-                  <Input
-                    id="textColor"
-                    type="color"
-                    value={textColor}
-                    onChange={(e) => setTextColor(e.target.value)}
-                    className="mt-2 h-10"
-                  />
-                </div>
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <Label htmlFor="buttonColor">Button</Label>
-                  <Input
-                    id="buttonColor"
-                    type="color"
-                    value={buttonColor}
-                    onChange={(e) => setButtonColor(e.target.value)}
-                    className="mt-2 h-10"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="buttonTextColor">Button Text</Label>
-                  <Input
-                    id="buttonTextColor"
-                    type="color"
-                    value={buttonTextColor}
-                    onChange={(e) => setButtonTextColor(e.target.value)}
-                    className="mt-2 h-10"
-                  />
-                </div>
-              </div>
               <div>
-                <Label>Hover Effect (Card)</Label>
-                <div className="grid grid-cols-2 gap-4 mt-2">
-                  <div>
-                    <Label htmlFor="hoverBgColor">Background</Label>
-                    <Input
-                      id="hoverBgColor"
-                      type="color"
-                      value={hoverBgColor}
-                      onChange={(e) => setHoverBgColor(e.target.value)}
-                      className="mt-2 h-10"
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="hoverTextColor">Text</Label>
-                    <Input
-                      id="hoverTextColor"
-                      type="color"
-                      value={hoverTextColor}
-                      onChange={(e) => setHoverTextColor(e.target.value)}
-                      className="mt-2 h-10"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div>
-                <Label>Hover Effect (Button)</Label>
-                <div className="grid grid-cols-2 gap-4 mt-2">
-                  <div>
-                    <Label htmlFor="buttonHoverColor">Background</Label>
-                    <Input
-                      id="buttonHoverColor"
-                      type="color"
-                      value={buttonHoverColor}
-                      onChange={(e) => setButtonHoverColor(e.target.value)}
-                      className="mt-2 h-10"
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="buttonHoverTextColor">Text</Label>
-                    <Input
-                      id="buttonHoverTextColor"
-                      type="color"
-                      value={buttonHoverTextColor}
-                      onChange={(e) =>
-                        setButtonHoverTextColor(e.target.value)
-                      }
-                      className="mt-2 h-10"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <Label htmlFor="flexDirection">Flex Direction</Label>
-                <Select
-                  value={flexDirection}
-                  onValueChange={setFlexDirection}
-                >
-                  <SelectTrigger className="w-full mt-2">
-                    <SelectValue placeholder="Select flex direction" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="row">Row</SelectItem>
-                    <SelectItem value="column">Column</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div>
-                <Label htmlFor="justifyContent">Justify Content</Label>
-                <Select
-                  value={justifyContent}
-                  onValueChange={setJustifyContent}
-                >
-                  <SelectTrigger className="w-full mt-2">
-                    <SelectValue placeholder="Select justify content" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="flex-start">Flex Start</SelectItem>
-                    <SelectItem value="flex-end">Flex End</SelectItem>
-                    <SelectItem value="center">Center</SelectItem>
-                    <SelectItem value="space-between">
-                      Space Between
-                    </SelectItem>
-                    <SelectItem value="space-around">Space Around</SelectItem>
-                    <SelectItem value="space-evenly">Space Evenly</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div>
-                <Label htmlFor="alignItems">Align Items</Label>
-                <Select value={alignItems} onValueChange={setAlignItems}>
-                  <SelectTrigger className="w-full mt-2">
-                    <SelectValue placeholder="Select align items" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="flex-start">Flex Start</SelectItem>
-                    <SelectItem value="flex-end">Flex End</SelectItem>
-                    <SelectItem value="center">Center</SelectItem>
-                    <SelectItem value="baseline">Baseline</SelectItem>
-                    <SelectItem value="stretch">Stretch</SelectItem>
-                  </SelectContent>
-                </Select>
+                <Label htmlFor="bgColor">Background Color</Label>
+                <Input
+                  id="bgColor"
+                  type="color"
+                  value={bgColor}
+                  onChange={(e) => setBgColor(e.target.value)}
+                  className="mt-2 h-10"
+                />
               </div>
 
               <Button
@@ -353,11 +185,9 @@ const CardBuilder = () => {
             {showPreview && (
               <Card className="p-6">
                 <h2 className="text-2xl font-bold mb-4">Preview</h2>
-                <div
+                <div 
                   className="flex justify-center"
-                  dangerouslySetInnerHTML={{
-                    __html: `<style>${generateCSS()}</style>${generateHTML()}`,
-                  }}
+                  dangerouslySetInnerHTML={{ __html: `<style>${generateCSS()}</style>${generateHTML()}` }}
                 />
               </Card>
             )}
@@ -368,7 +198,7 @@ const CardBuilder = () => {
                   <TabsTrigger value="html">HTML</TabsTrigger>
                   <TabsTrigger value="css">CSS</TabsTrigger>
                 </TabsList>
-
+                
                 <TabsContent value="html" className="space-y-4">
                   <div className="flex gap-2">
                     <Button
@@ -380,9 +210,7 @@ const CardBuilder = () => {
                       Copy HTML
                     </Button>
                     <Button
-                      onClick={() =>
-                        handleDownload(generateHTML(), "card.html")
-                      }
+                      onClick={() => handleDownload(generateHTML(), "card.html")}
                       variant="outline"
                       className="flex-1"
                     >
@@ -406,9 +234,7 @@ const CardBuilder = () => {
                       Copy CSS
                     </Button>
                     <Button
-                      onClick={() =>
-                        handleDownload(generateCSS(), "card.css")
-                      }
+                      onClick={() => handleDownload(generateCSS(), "card.css")}
                       variant="outline"
                       className="flex-1"
                     >

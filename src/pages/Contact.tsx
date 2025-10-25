@@ -7,6 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Mail, Phone, MapPin } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 
 const Contact = () => {
   const [name, setName] = useState("");
@@ -25,22 +26,16 @@ const Contact = () => {
     setLoading(true);
 
     try {
-      const response = await fetch("https://formspree.io/f/xldpqqjn", { // <-- Replace with your Formspree form ID
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ name, email, message }),
+      const { error } = await supabase.functions.invoke('send-contact-email', {
+        body: { name, email, message }
       });
 
-      if (response.ok) {
-        toast.success("Message sent successfully! We'll get back to you soon.");
-        setName("");
-        setEmail("");
-        setMessage("");
-      } else {
-        throw new Error("Failed to send message.");
-      }
+      if (error) throw error;
+
+      toast.success("Message sent successfully! We'll get back to you soon.");
+      setName("");
+      setEmail("");
+      setMessage("");
     } catch (error) {
       console.error('Error sending email:', error);
       toast.error("Failed to send message. Please try again.");
@@ -55,10 +50,10 @@ const Contact = () => {
       <main className="flex-1 container mx-auto px-4 pt-24 pb-16">
         <div className="text-center mb-12" id="about">
           <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-primary bg-clip-text text-transparent">
-            About OopsDev
+            About DevToolKit
           </h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-12">
-            OopsDev is your comprehensive web development resource, offering powerful tools and components to streamline your workflow. 
+            DevToolKit is your comprehensive web development resource, offering powerful tools and components to streamline your workflow. 
             From code formatters to UI builders, icon libraries to interactive learning modules, we provide everything you need to build modern web applications faster and more efficiently.
           </p>
         </div>

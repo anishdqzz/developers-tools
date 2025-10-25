@@ -27,7 +27,6 @@ import {
   Facebook, Instagram, Twitter, Linkedin, Youtube, Github
 } from "lucide-react";
 import { toast } from "sonner";
-import { renderToStaticMarkup } from 'react-dom/server';
 
 const Icons = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -203,10 +202,10 @@ const Icons = () => {
     icon.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const copyCode = (iconName: string, IconComponent: React.ElementType) => {
-    const svgString = renderToStaticMarkup(<IconComponent className="h-6 w-6" />);
-    navigator.clipboard.writeText(svgString);
-    toast.success(`${iconName} SVG code copied!`);
+  const copyCode = (iconName: string) => {
+    const code = `import { ${iconName} } from "lucide-react";\n\n<${iconName} className="h-6 w-6" />`;
+    navigator.clipboard.writeText(code);
+    toast.success(`${iconName} code copied!`);
   };
 
   return (
@@ -218,7 +217,7 @@ const Icons = () => {
             Icon Library
           </h1>
           <p className="text-xl text-muted-foreground mb-8">
-            Browse and copy {icons.length}+ beautiful Lucide SVG icons
+            Browse and copy {icons.length}+ beautiful Lucide React icons
           </p>
 
           <div className="max-w-md mx-auto">
@@ -237,7 +236,7 @@ const Icons = () => {
             <Card
               key={name}
               className="p-4 hover:shadow-lg transition-all cursor-pointer group"
-              onClick={() => copyCode(name, Icon)}
+              onClick={() => copyCode(name)}
             >
               <div className="flex flex-col items-center gap-3">
                 <div className="w-12 h-12 rounded-lg bg-secondary flex items-center justify-center group-hover:bg-gradient-primary transition-all">
@@ -251,11 +250,11 @@ const Icons = () => {
                     className="mt-1 h-6 text-xs"
                     onClick={(e) => {
                       e.stopPropagation();
-                      copyCode(name, Icon);
+                      copyCode(name);
                     }}
                   >
                     <Copy className="h-3 w-3 mr-1" />
-                    Copy SVG
+                    Copy
                   </Button>
                 </div>
               </div>
