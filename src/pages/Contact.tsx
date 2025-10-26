@@ -50,10 +50,10 @@ const Contact = () => {
       <main className="flex-1 container mx-auto px-4 pt-24 pb-16">
         <div className="text-center mb-12" id="about">
           <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-primary bg-clip-text text-transparent">
-            About DevToolKit
+            About OopsDev
           </h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-12">
-            DevToolKit is your comprehensive web development resource, offering powerful tools and components to streamline your workflow. 
+          OopsDev is your comprehensive web development resource, offering powerful tools and components to streamline your workflow. 
             From code formatters to UI builders, icon libraries to interactive learning modules, we provide everything you need to build modern web applications faster and more efficiently.
           </p>
         </div>

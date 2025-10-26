@@ -1,13 +1,10 @@
+
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useState } from "react";
-import { Copy, Download, Eye, Settings } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
 import {
   Select,
   SelectContent,
@@ -15,96 +12,104 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Sidebar } from "@/components/ui/sidebar";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useState, useMemo } from "react";
+import { Copy, Download, Eye } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 const CardBuilder = () => {
   const { toast } = useToast();
-  const [cardTitle, setCardTitle] = useState("Card Title");
-  const [cardDescription, setCardDescription] = useState(
-    "This is a card description"
-  );
-  const [imageUrl, setImageUrl] = useState(
-    "https://via.placeholder.com/300x200"
-  );
-  const [cardImage, setCardImage] = useState(
-    "https://via.placeholder.com/300x200"
-  );
-  const [buttonText, setButtonText] = useState("Learn More");
-  const [bgColor, setBgColor] = useState("#ffffff");
-  const [textAlign, setTextAlign] = useState<"left" | "center" | "right">(
-    "left"
-  );
   const [showPreview, setShowPreview] = useState(true);
 
-  const handleAddImage = () => {
-    setCardImage(imageUrl);
+  const [cardState, setCardState] = useState({
+    title: "Card Title",
+    description: "This is a card description. You can edit this text.",
+    imageUrl: "https://via.placeholder.com/400x250",
+    buttonText: "Learn More",
+    bgColor: "#ffffff",
+    textColor: "#333333",
+    buttonColor: "#4CAF50",
+    buttonTextColor: "#ffffff",
+    textAlign: "left" as "left" | "center" | "right",
+    fontFamily: "Arial, sans-serif",
+  });
+
+  const handleStateChange = (key: string, value: string) => {
+    setCardState((prevState) => ({ ...prevState, [key]: value }));
   };
 
-  const generateHTML = () => {
-    return `<div class="card">
-  <img src="${cardImage}" alt="${cardTitle}" class="card-image">
+  const generatedHTML = useMemo(() => {
+    return `
+<div class="card">
+  <img src="${cardState.imageUrl}" alt="${cardState.title}" class="card-image">
   <div class="card-content">
-    <h3 class="card-title">${cardTitle}</h3>
-    <p class="card-description">${cardDescription}</p>
-    <button class="card-button">${buttonText}</button>
+    <h3 class="card-title">${cardState.title}</h3>
+    <p class="card-description">${cardState.description}</p>
+    <button class="card-button">${cardState.buttonText}</button>
   </div>
-</div>`;
-  };
+</div>
+    `.trim();
+  }, [cardState]);
 
-  const generateCSS = () => {
-    return `.card {
-  background: ${bgColor};
-  border-radius: 8px;
+  const generatedCSS = useMemo(() => {
+    return `
+.card {
+  font-family: ${cardState.fontFamily};
+  background: ${cardState.bgColor};
+  color: ${cardState.textColor};
+  border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  max-width: 350px;
-  transition: transform 0.3s, box-shadow 0.3s;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  max-width: 380px;
+  transition: all 0.3s ease;
+  border: 1px solid #e5e7eb;
 }
 
 .card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-8px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
 }
 
 .card-image {
   width: 100%;
-  height: 200px;
+  height: 220px;
   object-fit: cover;
 }
 
 .card-content {
-  padding: 1.5rem;
-  text-align: ${textAlign};
+  padding: 2rem;
+  text-align: ${cardState.textAlign};
 }
 
 .card-title {
-  font-size: 1.5rem;
-  font-weight: bold;
+  font-size: 1.75rem;
+  font-weight: 700;
   margin-bottom: 0.75rem;
-  color: #333;
 }
 
 .card-description {
-  color: #666;
   line-height: 1.6;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  color: ${cardState.textColor}99;
 }
 
 .card-button {
-  background: #4CAF50;
-  color: white;
+  background: ${cardState.buttonColor};
+  color: ${cardState.buttonTextColor};
   border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 4px;
+  padding: 0.8rem 1.6rem;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 1rem;
-  transition: background 0.3s;
+  font-weight: 600;
+  transition: all 0.3s ease;
 }
 
 .card-button:hover {
-  background: #45a049;
-}`;
-  };
+  filter: brightness(0.9);
+}
+    `.trim();
+  }, [cardState]);
 
   const handleCopy = (content: string) => {
     navigator.clipboard.writeText(content);
@@ -125,181 +130,256 @@ const CardBuilder = () => {
   };
 
   return (
-    <div className="flex h-screen bg-background">
-      <Sidebar>
-        <Card className="w-full">
-          <CardHeader>
-            <CardTitle className="flex items-center">
-              <Settings className="mr-2" />
-              Configuration
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="title">Card Title</Label>
-              <Input
+    <div className="min-h-screen flex flex-col bg-background">
+      <Navigation />
+      <main className="flex-1 container mx-auto px-4 pt-24 pb-16">
+        <div className="text-center mb-12">
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-primary bg-clip-text text-transparent">
+            Interactive Card Builder
+          </h1>
+          <p className="text-xl text-muted-foreground">
+            Design and export custom cards with live preview
+          </p>
+        </div>
+
+        <div className="grid lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+          <Card className="lg:col-span-1 p-6 h-fit sticky top-24">
+            <h2 className="text-2xl font-bold mb-6">Customize Your Card</h2>
+            <div className="space-y-4 max-h-[calc(100vh-20rem)] overflow-y-auto pr-2">
+              <Customizer
+                label="Title"
                 id="title"
-                value={cardTitle}
-                onChange={(e) => setCardTitle(e.target.value)}
+                value={cardState.title}
+                onChange={(e) => handleStateChange("title", e.target.value)}
               />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="description">Description</Label>
-              <Input
+              <Customizer
+                label="Description"
                 id="description"
-                value={cardDescription}
-                onChange={(e) => setCardDescription(e.target.value)}
+                value={cardState.description}
+                onChange={(e) =>
+                  handleStateChange("description", e.target.value)
+                }
+                type="textarea"
               />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="image">Image URL</Label>
-              <div className="flex items-center space-x-2">
-                <Input
-                  id="image"
-                  value={imageUrl}
-                  onChange={(e) => setImageUrl(e.target.value)}
+              <Customizer
+                label="Image URL"
+                id="imageUrl"
+                value={cardState.imageUrl}
+                onChange={(e) =>
+                  handleStateChange("imageUrl", e.target.value)
+                }
+              />
+              <Customizer
+                label="Button Text"
+                id="buttonText"
+                value={cardState.buttonText}
+                onChange={(e) =>
+                  handleStateChange("buttonText", e.target.value)
+                }
+              />
+              <div className="grid grid-cols-2 gap-4">
+                <ColorPicker
+                  label="Background"
+                  id="bgColor"
+                  value={cardState.bgColor}
+                  onChange={(e) =>
+                    handleStateChange("bgColor", e.target.value)
+                  }
                 />
-                <Button onClick={handleAddImage} size="sm">
-                  Add
-                </Button>
+                <ColorPicker
+                  label="Text"
+                  id="textColor"
+                  value={cardState.textColor}
+                  onChange={(e) =>
+                    handleStateChange("textColor", e.target.value)
+                  }
+                />
+                <ColorPicker
+                  label="Button"
+                  id="buttonColor"
+                  value={cardState.buttonColor}
+                  onChange={(e) =>
+                    handleStateChange("buttonColor", e.target.value)
+                  }
+                />
+                <ColorPicker
+                  label="Button Text"
+                  id="buttonTextColor"
+                  value={cardState.buttonTextColor}
+                  onChange={(e) =>
+                    handleStateChange("buttonTextColor", e.target.value)
+                  }
+                />
+              </div>
+
+              <div>
+                <Label>Text Alignment</Label>
+                <Select
+                  value={cardState.textAlign}
+                  onValueChange={(value) => handleStateChange("textAlign", value)}
+                >
+                  <SelectTrigger className="mt-2">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="left">Left</SelectItem>
+                    <SelectItem value="center">Center</SelectItem>
+                    <SelectItem value="right">Right</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div>
+                <Label>Font Family</Label>
+                <Select
+                  value={cardState.fontFamily}
+                  onValueChange={(value) =>
+                    handleStateChange("fontFamily", value)
+                  }
+                >
+                  <SelectTrigger className="mt-2">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Arial, sans-serif">Arial</SelectItem>
+                    <SelectItem value="'Helvetica Neue', sans-serif">
+                      Helvetica Neue
+                    </SelectItem>
+                    <SelectItem value="'Times New Roman', serif">
+                      Times New Roman
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="button">Button Text</Label>
-              <Input
-                id="button"
-                value={buttonText}
-                onChange={(e) => setButtonText(e.target.value)}
-              />
-            </div>
-            <div className="space-y-2">
-              <Label>Text Alignment</Label>
-              <Select
-                onValueChange={(value: "left" | "center" | "right") =>
-                  setTextAlign(value)
-                }
-                defaultValue={textAlign}
+          </Card>
+
+          <div className="lg:col-span-2 space-y-8">
+            <div className="flex justify-between items-center">
+              <h2 className="text-2xl font-bold">Preview & Code</h2>
+              <Button
+                onClick={() => setShowPreview(!showPreview)}
+                variant="outline"
               >
-                <SelectTrigger>
-                  <SelectValue placeholder="Alignment" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="left">Left</SelectItem>
-                  <SelectItem value="center">Center</SelectItem>
-                  <SelectItem value="right">Right</SelectItem>
-                </SelectContent>
-              </Select>
+                <Eye className="mr-2 h-4 w-4" />
+                {showPreview ? "Hide" : "Show"} Preview
+              </Button>
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="bgColor">Background Color</Label>
-              <Input
-                id="bgColor"
-                type="color"
-                value={bgColor}
-                onChange={(e) => setBgColor(e.target.value)}
-                className="h-10"
-              />
-            </div>
-          </CardContent>
-        </Card>
-      </Sidebar>
-      <div className="flex-1 flex flex-col">
-        <Navigation />
-        <main className="flex-1 p-8 overflow-auto">
-          <div className="flex justify-end mb-4">
-            <Button
-              onClick={() => setShowPreview(!showPreview)}
-              variant="outline"
-            >
-              <Eye className="mr-2 h-4 w-4" />
-              {showPreview ? "Hide" : "Show"} Preview
-            </Button>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+
             {showPreview && (
-              <Card>
-                <CardHeader>
-                  <CardTitle>Preview</CardTitle>
-                </CardHeader>
-                <CardContent>
+              <Card className="p-6">
+                <h3 className="text-xl font-bold mb-4">Live Preview</h3>
+                <div className="flex justify-center items-center p-4 bg-muted rounded-lg">
                   <div
-                    className="flex justify-center items-center h-full"
                     dangerouslySetInnerHTML={{
-                      __html: `<style>${generateCSS()}</style>${generateHTML()}`,
+                      __html: `<style>${generatedCSS}</style>${generatedHTML}`,
                     }}
                   />
-                </CardContent>
+                </div>
               </Card>
             )}
-            <Card>
-              <CardHeader>
-                <CardTitle>Code</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <Tabs defaultValue="html">
-                  <TabsList className="grid w-full grid-cols-2">
-                    <TabsTrigger value="html">HTML</TabsTrigger>
-                    <TabsTrigger value="css">CSS</TabsTrigger>
-                  </TabsList>
-                  <TabsContent value="html" className="mt-4">
-                    <div className="flex gap-2 mb-4">
-                      <Button
-                        onClick={() => handleCopy(generateHTML())}
-                        variant="outline"
-                        className="flex-1"
-                      >
-                        <Copy className="mr-2 h-4 w-4" />
-                        Copy
-                      </Button>
-                      <Button
-                        onClick={() =>
-                          handleDownload(generateHTML(), "card.html")
-                        }
-                        variant="outline"
-                        className="flex-1"
-                      >
-                        <Download className="mr-2 h-4 w-4" />
-                        Download
-                      </Button>
-                    </div>
-                    <pre className="bg-muted p-4 rounded-lg overflow-x-auto text-sm">
-                      <code>{generateHTML()}</code>
-                    </pre>
-                  </TabsContent>
-                  <TabsContent value="css" className="mt-4">
-                    <div className="flex gap-2 mb-4">
-                      <Button
-                        onClick={() => handleCopy(generateCSS())}
-                        variant="outline"
-                        className="flex-1"
-                      >
-                        <Copy className="mr-2 h-4 w-4" />
-                        Copy
-                      </Button>
-                      <Button
-                        onClick={() =>
-                          handleDownload(generateCSS(), "card.css")
-                        }
-                        variant="outline"
-                        className="flex-1"
-                      >
-                        <Download className="mr-2 h-4 w-4" />
-                        Download
-                      </Button>
-                    </div>
-                    <pre className="bg-muted p-4 rounded-lg overflow-x-auto text-sm">
-                      <code>{generateCSS()}</code>
-                    </pre>
-                  </TabsContent>
-                </Tabs>
-              </CardContent>
+
+            <Card className="p-6">
+              <Tabs defaultValue="html">
+                <TabsList className="grid w-full grid-cols-2">
+                  <TabsTrigger value="html">HTML</TabsTrigger>
+                  <TabsTrigger value="css">CSS</TabsTrigger>
+                </TabsList>
+                <CodeTab
+                  value="html"
+                  code={generatedHTML}
+                  onCopy={() => handleCopy(generatedHTML)}
+                  onDownload={() =>
+                    handleDownload(generatedHTML, "card.html")
+                  }
+                />
+                <CodeTab
+                  value="css"
+                  code={generatedCSS}
+                  onCopy={() => handleCopy(generatedCSS)}
+                  onDownload={() => handleDownload(generatedCSS, "card.css")}
+                />
+              </Tabs>
             </Card>
           </div>
-        </main>
-        <Footer />
-      </div>
+        </div>
+      </main>
+      <Footer />
     </div>
   );
 };
+
+const Customizer = ({
+  label,
+  id,
+  type = "text",
+  ...props
+}: {
+  label: string;
+  id: string;
+  type?: string;
+  [key: string]: any;
+}) => (
+  <div>
+    <Label htmlFor={id}>{label}</Label>
+    {type === "textarea" ? (
+      <textarea
+        id={id}
+        className="w-full p-2 border rounded mt-2"
+        {...props}
+      />
+    ) : (
+      <Input id={id} type={type} className="mt-2" {...props} />
+    )}
+  </div>
+);
+
+const ColorPicker = ({
+  label,
+  id,
+  ...props
+}: {
+  label: string;
+  id: string;
+  [key: string]: any;
+}) => (
+  <div>
+    <Label htmlFor={id}>{label}</Label>
+    <Input
+      id={id}
+      type="color"
+      className="w-full h-10 mt-2 p-1"
+      {...props}
+    />
+  </div>
+);
+
+const CodeTab = ({
+  value,
+  code,
+  onCopy,
+  onDownload,
+}: {
+  value: string;
+  code: string;
+  onCopy: () => void;
+  onDownload: () => void;
+}) => (
+  <TabsContent value={value} className="space-y-4 mt-4">
+    <div className="flex gap-2">
+      <Button onClick={onCopy} variant="outline" className="flex-1">
+        <Copy className="mr-2 h-4 w-4" />
+        Copy {value.toUpperCase()}
+      </Button>
+      <Button onClick={onDownload} variant="outline" className="flex-1">
+        <Download className="mr-2 h-4 w-4" />
+        Download
+      </Button>
+    </div>
+    <pre className="bg-muted p-4 rounded-lg overflow-x-auto text-sm">
+      <code>{code}</code>
+    </pre>
+  </TabsContent>
+);
 
 export default CardBuilder;

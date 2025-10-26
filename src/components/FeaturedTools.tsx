@@ -14,7 +14,7 @@ const tools = [
   {
     icon: FileCode,
     title: "Code Formatter",
-    description: "Format HTML, CSS, and JavaScript with powerful builders",
+    description: "Format your code with powerful builders",
     tags: ["HTML", "CSS", "JS"],
     path: "/code-formatter",
   },

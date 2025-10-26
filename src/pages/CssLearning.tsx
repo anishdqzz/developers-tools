@@ -206,9 +206,20 @@ const CssLearning = () => {
             {runningExample === index && (
                 <div className="mt-4">
                     <h4 className="text-lg font-semibold mb-2">Output</h4>
-                    <div className="p-4 rounded" style={{ backgroundColor: getContrastingColor(cardBgColor), border: `1px solid ${getContrastingColor(getContrastingColor(cardBgColor))}` }}>
-                        <style>{tag.example.split('\n')[0]}</style>
-                        <div dangerouslySetInnerHTML={{ __html: tag.html }} style={{color: cardTextColor, minHeight: '50px'}}/>
+                    <div id={`css-output-${index}`} className="p-4 rounded" style={{ backgroundColor: getContrastingColor(cardBgColor), border: `1px solid ${getContrastingColor(getContrastingColor(cardBgColor))}` }}>
+                        <style>
+                            {tag.example.split('\n').map(rule => {
+                                const separatorIndex = rule.indexOf('{');
+                                if (separatorIndex !== -1) {
+                                    const selectors = rule.substring(0, separatorIndex).trim();
+                                    const style = rule.substring(separatorIndex);
+                                    const newSelectors = selectors.split(',').map(s => `#css-output-${index} ${s.trim()}`).join(', ');
+                                    return `${newSelectors} ${style}`;
+                                }
+                                return rule;
+                            }).join('\n')}
+                        </style>
+                        <div dangerouslySetInnerHTML={{ __html: tag.html }} />
                     </div>
                 </div>
             )}
