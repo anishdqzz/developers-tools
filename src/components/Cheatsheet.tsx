@@ -11,9 +11,11 @@ interface CheatSheetItem {
 interface CheatSheetProps {
   title: string;
   items: CheatSheetItem[];
+  cardBgColor?: string;
+  cardTextColor?: string;
 }
 
-export const CheatSheet = ({ title, items }: CheatSheetProps) => {
+export const CheatSheet = ({ title, items, cardBgColor, cardTextColor }: CheatSheetProps) => {
   const copyCode = (code: string) => {
     navigator.clipboard.writeText(code);
     toast.success("Code copied to clipboard!");
@@ -21,19 +23,21 @@ export const CheatSheet = ({ title, items }: CheatSheetProps) => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <main className="flex-1 container mx-auto px-4 pt-24 pb-16">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-primary bg-clip-text text-transparent">
-            {title}
-          </h1>
-        </div>
+      <main className="flex-1 container mx-auto px-4 pb-16">
+        {title && (
+          <div className="text-center mb-12">
+            <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-primary bg-clip-text text-transparent">
+              {title}
+            </h1>
+          </div>
+        )}
 
         <div className="grid md:grid-cols-2 gap-6">
           {items.map((item, index) => (
-            <Card key={index} className="p-6">
+            <Card key={index} className="p-6" style={{ backgroundColor: cardBgColor, color: cardTextColor }}>
               <h3 className="text-xl font-bold mb-4">{item.title}</h3>
               <div className="relative">
-                <pre className="bg-secondary p-4 rounded-lg text-sm overflow-x-auto">
+                <pre className="p-4 rounded-lg text-sm overflow-x-auto" style={{ backgroundColor: cardBgColor ? (getContrastingColor(cardBgColor)) : "", color: cardBgColor ? (getContrastingColor(getContrastingColor(cardBgColor))) : "" }}>
                   <code>{item.code}</code>
                 </pre>
                 <Button
@@ -52,3 +56,13 @@ export const CheatSheet = ({ title, items }: CheatSheetProps) => {
     </div>
   );
 };
+
+function getContrastingColor(hexcolor: string | undefined) {
+  if (!hexcolor) return "";
+  hexcolor = hexcolor.replace("#", "");
+  const r = parseInt(hexcolor.substr(0, 2), 16);
+  const g = parseInt(hexcolor.substr(2, 2), 16);
+  const b = parseInt(hexcolor.substr(4, 2), 16);
+  const yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+  return (yiq >= 128) ? '#000000' : '#ffffff';
+}

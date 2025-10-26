@@ -150,6 +150,18 @@ const ReactCheatsheet = () => {
     return () => clearInterval(typing);
   }, []);
 
+  const getContrastingColor = (hexcolor) => {
+    hexcolor = hexcolor.replace("#", "");
+    const r = parseInt(hexcolor.substr(0, 2), 16);
+    const g = parseInt(hexcolor.substr(2, 2), 16);
+    const b = parseInt(hexcolor.substr(4, 2), 16);
+    const yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+    return (yiq >= 128) ? '#000000' : '#ffffff';
+  };
+
+  const cardBgColor = getContrastingColor(bgColor);
+  const cardTextColor = getContrastingColor(cardBgColor);
+
   return (
     <div className="container mx-auto px-4 py-8 transition-colors duration-500" style={{ backgroundColor: bgColor, color: textColor }}>
       <div className="flex justify-end mb-4">
@@ -172,7 +184,7 @@ const ReactCheatsheet = () => {
         {text}
         <span className="animate-ping">|</span>
       </h1>
-      <CheatSheet title="" items={reactCheatsheet} />
+      <CheatSheet title="" items={reactCheatsheet} cardBgColor={cardBgColor} cardTextColor={cardTextColor} />
     </div>
   );
 };
