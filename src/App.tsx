@@ -18,6 +18,8 @@ import UiComponents from "./pages/UiComponents";
 import Contact from "./pages/Contact";
 import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
+import HtmlLearning from "./pages/HtmlLearning";
+import CssLearning from "./pages/CssLearning"; // Import CssLearning
 
 const queryClient = new QueryClient();
 
@@ -39,6 +41,8 @@ const App = () => (
           <Route path="/builders/layout" element={<LayoutBuilder />} />
           <Route path="/js-learning" element={<JsLearning />} />
           <Route path="/icons" element={<Icons />} />
+          <Route path="/html-learning" element={<HtmlLearning />} />
+          <Route path="/css-learning" element={<CssLearning />} /> {/* Add CssLearning route */}
           <Route path="/ui-components" element={<UiComponents />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/auth" element={<Auth />} />

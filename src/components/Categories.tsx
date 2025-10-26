@@ -1,35 +1,36 @@
 import { Code, Palette, Braces, Layers, Database, Wand2 } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
+import { Link } from "react-router-dom";
+import CssLearning from "@/pages/CssLearning";
 
 const categories = [
   {
     icon: Code,
-    title: "HTML Tools",
+    title: "HTML Learning",
     description: "HTML generators, validators, and formatters",
+    path: "/html-learning",
   },
   {
     icon: Palette,
-    title: "CSS Tools",
+    title: "CSS Learning",
     description: "propertys, animations",
+    path: "/css-learning",
   },
   {
     icon: Braces,
     title: "JavaScript",
     description: "Code minifiers, beautifiers, and validators",
+    path: "/js-learning",
 
   },
   {
     icon: Layers,
     title: "React Helpers",
     description: "Component generators and React-specific utilities",
+    path: "/ui-components",
   
   },
-  {
-    icon: Wand2,
-    title: "Generators",
-    description: "Lorem ipsum, icons, images, and more",
-  
-  },
+
 ];
 
 export const Categories = () => {
@@ -52,23 +53,24 @@ export const Categories = () => {
           {categories.map((category, index) => {
             const Icon = category.icon;
             return (
-              <Card
-                key={index}
-                className="bg-card border-border hover:border-primary/50 transition-all duration-300 hover:shadow-glow cursor-pointer group"
-              >
-                <CardHeader>
-                  <div className="w-12 h-12 rounded-lg bg-gradient-primary flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                    <Icon className="h-6 w-6 text-primary-foreground" />
-                  </div>
-                  <CardTitle className="text-2xl">{category.title}</CardTitle>
-                  <CardDescription className="text-base">
-                    {category.description}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-sm text-primary font-mono"></div>
-                </CardContent>
-              </Card>
+              <Link to={category.path} key={index}>
+                <Card
+                  className="bg-card border-border hover:border-primary/50 transition-all duration-300 hover:shadow-glow cursor-pointer group h-full"
+                >
+                  <CardHeader>
+                    <div className="w-12 h-12 rounded-lg bg-gradient-primary flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                      <Icon className="h-6 w-6 text-primary-foreground" />
+                    </div>
+                    <CardTitle className="text-2xl">{category.title}</CardTitle>
+                    <CardDescription className="text-base">
+                      {category.description}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-sm text-primary font-mono"></div>
+                  </CardContent>
+                </Card>
+              </Link>
             );
           })}
         </div>
