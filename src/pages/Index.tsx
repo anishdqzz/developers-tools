@@ -1,8 +1,8 @@
 import { Navigation } from "@/components/Navigation";
 import { Hero } from "@/components/Hero";
-import { FeaturedTools } from "@/components/FeaturedTools";
 import { Categories } from "@/components/Categories";
 import { Footer } from "@/components/Footer";
+import { FeaturedTools } from "@/components/FeaturedTools";
 
 const Index = () => {
   return (
@@ -10,9 +10,7 @@ const Index = () => {
       <Navigation />
       <main>
         <Hero />
-        <div id="tools">
-          <FeaturedTools />
-        </div>
+        <FeaturedTools />
         <Categories />
       </main>
       <Footer />
