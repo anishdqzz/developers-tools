@@ -19,7 +19,8 @@ import Contact from "./pages/Contact";
 import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
 import HtmlLearning from "./pages/HtmlLearning";
-import CssLearning from "./pages/CssLearning"; // Import CssLearning
+import CssLearning from "./pages/CssLearning";
+import ReactCheatsheet from "./pages/react";
 
 const queryClient = new QueryClient();
 
@@ -42,8 +43,9 @@ const App = () => (
           <Route path="/js-learning" element={<JsLearning />} />
           <Route path="/icons" element={<Icons />} />
           <Route path="/html-learning" element={<HtmlLearning />} />
-          <Route path="/css-learning" element={<CssLearning />} /> {/* Add CssLearning route */}
+          <Route path="/css-learning" element={<CssLearning />} />
           <Route path="/ui-components" element={<UiComponents />} />
+          <Route path="/react" element={<ReactCheatsheet />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/auth" element={<Auth />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

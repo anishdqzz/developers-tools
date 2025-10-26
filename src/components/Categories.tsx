@@ -1,7 +1,6 @@
-import { Code, Palette, Braces, Layers, Database, Wand2 } from "lucide-react";
+import { Code, Palette, Braces, Layers } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
 import { Link } from "react-router-dom";
-import CssLearning from "@/pages/CssLearning";
 
 const categories = [
   {
@@ -21,16 +20,13 @@ const categories = [
     title: "JavaScript",
     description: "Code minifiers, beautifiers, and validators",
     path: "/js-learning",
-
   },
   {
     icon: Layers,
     title: "React Helpers",
     description: "Component generators and React-specific utilities",
-    path: "/ui-components",
-  
+    path: "/react",
   },
-
 ];
 
 export const Categories = () => {
