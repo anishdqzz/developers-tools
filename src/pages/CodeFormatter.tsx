@@ -8,7 +8,7 @@ const CodeFormatter = () => {
   const formatters = [
     {
       title: "HTML",
-      description: "Format and build HTML code with our powerful builders",
+      description: "Format your code with our powerful builders",
       icon: Code,
       path: "/html-builders",
       color: "from-orange-500 to-red-500",
