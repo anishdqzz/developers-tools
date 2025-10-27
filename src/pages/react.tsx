@@ -503,7 +503,7 @@ const themes = {
 const ReactCheatsheet = () => {
   const [text, setText] = useState('');
   const [theme, setTheme] = useState('dark');
-  const fullText = 'React Cheatsheet';
+  const fullText = 'React Basic To Advance';
 
   const { bgColor, textColor } = themes[theme];
 
@@ -517,7 +517,7 @@ const ReactCheatsheet = () => {
         setTimeout(() => {
           setText('');
           i = 0;
-        }, 2000);
+        }, 1000);
       }
     }, 100);
     return () => clearInterval(typing);
