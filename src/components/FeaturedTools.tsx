@@ -21,14 +21,14 @@ const tools = [
   {
     icon: Code,
     title: "Icon Library",
-    description: "Browse and copy 100+ beautiful Lucide React icons",
+    description: "Browse and copy 100+ beautiful icons",
     tags: ["Icons", "React"],
     path: "/icons",
   },
   {
     icon: Sparkles,
     title: "UI Components",
-    description: "Beautiful, ready-to-use UI components with code",
+    description: "Ready-to-use UI components with code",
     tags: ["UI", "Components"],
     path: "/ui-components",
   },
@@ -92,7 +92,7 @@ export const FeaturedTools = () => {
                     onClick={() => handleToolClick(tool.path)}
                     disabled={tool.path === "#"}
                   >
-                    {tool.path === "#" ? "Coming Soon" : "Experience Now"}
+                    {tool.path === "#" ? "Coming Soon" : "Try It"}
                   </Button>
                 </CardContent>
               </Card>
