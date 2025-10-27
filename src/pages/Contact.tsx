@@ -5,44 +5,19 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Mail, Phone, MapPin } from "lucide-react";
-import { useState } from "react";
+import { useForm } from '@formspree/react';
 import { toast } from "sonner";
-import { supabase } from "@/integrations/supabase/client";
 
 const Contact = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
-  const [loading, setLoading] = useState(false);
+  // Replace 'YOUR_FORM_ID' with your actual Formspree form ID
+  const [state, handleSubmit] = useForm("xldpqqjn");
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (!name || !email || !message) {
-      toast.error("Please fill in all fields");
-      return;
-    }
-
-    setLoading(true);
-
-    try {
-      const { error } = await supabase.functions.invoke('send-contact-email', {
-        body: { name, email, message }
-      });
-
-      if (error) throw error;
-
-      toast.success("Message sent successfully! We'll get back to you soon.");
-      setName("");
-      setEmail("");
-      setMessage("");
-    } catch (error) {
-      console.error('Error sending email:', error);
-      toast.error("Failed to send message. Please try again.");
-    } finally {
-      setLoading(false);
-    }
-  };
+  if (state.succeeded) {
+    toast.success("Message sent successfully! We'll get back to you soon.");
+  }
+  if (state.errors) {
+    toast.error("Failed to send message. Please try again.");
+  }
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -73,8 +48,7 @@ const Contact = () => {
                     <Input
                       id="name"
                       type="text"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
+                      name="name"
                       placeholder="Your name"
                       required
                     />
@@ -87,8 +61,7 @@ const Contact = () => {
                     <Input
                       id="email"
                       type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
+                      name="email"
                       placeholder="your.email@example.com"
                       required
                     />
@@ -100,16 +73,15 @@ const Contact = () => {
                     </label>
                     <Textarea
                       id="message"
-                      value={message}
-                      onChange={(e) => setMessage(e.target.value)}
+                      name="message"
                       placeholder="Tell us how we can help..."
                       rows={5}
                       required
                     />
                   </div>
 
-                  <Button type="submit" className="w-full" disabled={loading}>
-                    {loading ? "Sending..." : "Send Message"}
+                  <Button type="submit" className="w-full" disabled={state.submitting}>
+                    {state.submitting ? "Sending..." : "Send Message"}
                   </Button>
                 </form>
               </Card>
