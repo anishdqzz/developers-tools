@@ -22,7 +22,7 @@ const tools = [
     icon: Code,
     title: "Icon Library",
     description: "Browse and copy 100+ beautiful icons",
-    tags: ["Icons", "React"],
+    tags: ["Icons",],
     path: "/icons",
   },
   {
