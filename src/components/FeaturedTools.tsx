@@ -92,7 +92,7 @@ export const FeaturedTools = () => {
                     onClick={() => handleToolClick(tool.path)}
                     disabled={tool.path === "#"}
                   >
-                    {tool.path === "#" ? "Coming Soon" : "Try Now"}
+                    {tool.path === "#" ? "Coming Soon" : "Experience Now"}
                   </Button>
                 </CardContent>
               </Card>

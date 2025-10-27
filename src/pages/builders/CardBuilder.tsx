@@ -23,11 +23,11 @@ const CardBuilder = () => {
 
   const [cardState, setCardState] = useState({
     title: "Card Title",
-    description: "This is a card description. You can edit this text.",
-    imageUrl: "https://via.placeholder.com/400x250",
+    description: "This is a card description.",
+    imageUrl: "https://via.placeholder.com/300x200",
     buttonText: "Learn More",
     bgColor: "#ffffff",
-    textColor: "#333333",
+    textColor: "#000000",
     buttonColor: "#4CAF50",
     buttonTextColor: "#ffffff",
     textAlign: "left" as "left" | "center" | "right",

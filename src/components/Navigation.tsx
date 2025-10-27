@@ -1,5 +1,5 @@
 import { Code2, Menu, X, Home, Sun, Moon } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "./ui/button";
 import { useTheme } from "./ThemeProvider";
@@ -8,6 +8,37 @@ export const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
   const location = useLocation();
+  const [typedText, setTypedText] = useState("");
+  const fullText = "OopsDev";
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    const type = (index: number) => {
+      if (index <= fullText.length) {
+        setTypedText(fullText.slice(0, index));
+        timeoutRef.current = setTimeout(() => type(index + 1), 200);
+      } else {
+        timeoutRef.current = setTimeout(() => deleteText(fullText.length), 2000);
+      }
+    };
+
+    const deleteText = (index: number) => {
+      if (index >= 0) {
+        setTypedText(fullText.slice(0, index));
+        timeoutRef.current = setTimeout(() => deleteText(index - 1), 100);
+      } else {
+        timeoutRef.current = setTimeout(() => type(0), 500);
+      }
+    };
+
+    type(0);
+
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
 
   const handleScrollTo = (id: string) => {
     setIsOpen(false);
@@ -19,9 +50,6 @@ export const Navigation = () => {
         window.scrollTo({ top: 0, behavior: "smooth" });
       }
     } else {
-      // You might want to navigate to the homepage and then scroll
-      // For simplicity, this example just scrolls on the current page.
-      // A more robust solution might use state management or query parameters.
       window.location.href = `/#${id}`;
     }
   };
@@ -33,7 +61,8 @@ export const Navigation = () => {
           <Link to="/" onClick={() => handleScrollTo('home')} className="flex items-center gap-2">
             <Code2 className="h-8 w-8 text-primary" />
             <span className="text-xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-              OopsDev
+              {typedText}
+              <span className="typewriter-cursor">|</span>
             </span>
           </Link>
 
