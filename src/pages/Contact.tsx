@@ -7,17 +7,23 @@ import { Textarea } from "@/components/ui/textarea";
 import { Mail, Phone, MapPin } from "lucide-react";
 import { useForm } from '@formspree/react';
 import { toast } from "sonner";
+import { useEffect, useRef } from "react";
 
 const Contact = () => {
-  // Replace 'YOUR_FORM_ID' with your actual Formspree form ID
   const [state, handleSubmit] = useForm("xldpqqjn");
+  const formRef = useRef<HTMLFormElement>(null);
 
-  if (state.succeeded) {
-    toast.success("Message sent successfully! We'll get back to you soon.");
-  }
-  if (state.errors) {
-    toast.error("Failed to send message. Please try again.");
-  }
+  useEffect(() => {
+    if (state.succeeded) {
+      toast.success("Message sent successfully! We'll get back to you soon.");
+      if (formRef.current) {
+        formRef.current.reset();
+      }
+    }
+    if (state.errors) {
+      toast.error("Failed to send message. Please try again.");
+    }
+  }, [state.succeeded, state.errors]);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -40,7 +46,7 @@ const Contact = () => {
             <div>
               <Card className="p-6 h-full">
                 <h3 className="text-2xl font-bold mb-6">Send us a message</h3>
-                <form onSubmit={handleSubmit} className="space-y-4">
+                <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium mb-2">
                       Name
