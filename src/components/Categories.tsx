@@ -6,25 +6,25 @@ const categories = [
   {
     icon: Code,
     title: "HTML Learning",
-    description: "HTML generators, validators, and formatters",
+    description: "Learn HTML tag with example",
     path: "/html-learning",
   },
   {
     icon: Palette,
     title: "CSS Learning",
-    description: "propertys, animations",
+    description: "Css Styling propertys with examples",
     path: "/css-learning",
   },
   {
     icon: Braces,
     title: "JavaScript",
-    description: "Code minifiers, beautifiers, and validators",
+    description: "Learn JavaScript Basic To Advance",
     path: "/js-learning",
   },
   {
     icon: Layers,
     title: "React Helpers",
-    description: "Component generators and React-specific utilities",
+    description: "Learn react With examples",
     path: "/react",
   },
 ];
@@ -35,13 +35,13 @@ export const Categories = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Explore by{" "}
+            Learn by{" "}
             <span className="bg-gradient-primary bg-clip-text text-transparent">
               Category
             </span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Navigate through our organized collection of development tools
+            Learn Codes with Examples !!! 
           </p>
         </div>
 
