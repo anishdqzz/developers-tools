@@ -260,7 +260,7 @@ const HtmlLearning = () => {
           </div>
         ))}
       </div>
-      <h1 className="text-4xl font-bold mb-4 text-center">
+      <h1 className="text-4xl font-bold mb-4 text-center" style={{color: '#61dafbaa'}}>
         {text}
         <span className="animate-ping">|</span>
       </h1>

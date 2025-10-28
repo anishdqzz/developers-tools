@@ -1,4 +1,3 @@
-
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -143,9 +142,9 @@ const CardBuilder = () => {
         </div>
 
         <div className="grid lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-          <Card className="lg:col-span-1 p-6 h-fit sticky top-24">
+          <Card className="lg:col-span-1 p-6 h-fit lg:sticky top-24">
             <h2 className="text-2xl font-bold mb-6">Customize Your Card</h2>
-            <div className="space-y-4 max-h-[calc(100vh-20rem)] overflow-y-auto pr-2">
+            <div className="space-y-4 lg:max-h-[calc(100vh-20rem)] overflow-y-auto pr-2">
               <Customizer
                 label="Title"
                 id="title"

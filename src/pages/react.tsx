@@ -553,10 +553,13 @@ const ReactCheatsheet = () => {
           </div>
         ))}
       </div>
-      <h1 className="text-4xl font-bold mb-4 text-center">
-        {text}
+      <h1 className="text-4xl font-bold mb-4 text-center" style={{color: '#61dafbaa'}}>
+        {text}        
         <span className="animate-ping">|</span>
       </h1>
+      <p className="text-lg text-muted-foreground mb-8 text-center">
+      Here’s a complete list of React topics, from fundamental concepts to advanced techniques.
+      </p>
       <CheatSheet title="" items={reactCheatsheet} cardBgColor={cardBgColor} cardTextColor={cardTextColor} />
     </div>
   );

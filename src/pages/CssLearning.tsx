@@ -206,7 +206,7 @@ const CssLearning = () => {
             {runningExample === index && (
                 <div className="mt-4">
                     <h4 className="text-lg font-semibold mb-2">Output</h4>
-                    <div id={`css-output-${index}`} className="p-4 rounded" style={{ backgroundColor: getContrastingColor(cardBgColor), border: `1px solid ${getContrastingColor(getContrastingColor(cardBgColor))}` }}>
+                    <div id={`css-output-${index}`} className="p-4 rounded" style={{ backgroundColor: 'white', color: 'black', border: '1px solid #ccc' }}>
                         <style>
                             {tag.example.split('\n').map(rule => {
                                 const separatorIndex = rule.indexOf('{');
