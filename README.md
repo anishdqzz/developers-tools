@@ -1,18 +1,9 @@
-# Welcome to your Lovable project
+# Welcome to Oops project
 
 ## Project info
 
-**URL**: https://lovable.dev/projects/2d1e1008-9d43-4182-8b15-8c08715837a5
+**URL**: https://www.oopsdev.com
 
-## How can I edit this code?
-
-There are several ways of editing your application.
-
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/2d1e1008-9d43-4182-8b15-8c08715837a5) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
 
 **Use your preferred IDE**
 
@@ -60,9 +51,25 @@ This project is built with:
 - shadcn-ui
 - Tailwind CSS
 
-## How can I deploy this project?
 
-Simply open [Lovable](https://lovable.dev/projects/2d1e1008-9d43-4182-8b15-8c08715837a5) and click on Share -> Publish.
+   *   This command deploys your Hosting content and configuration to Firebase-provisioned URLs (e.g., `PROJECT_ID.web.app` or `PROJECT_ID.firebaseapp.com`).
+   *   For more detailed information on deploying with Firebase Hosting, including connecting a custom domain, please refer to the official Firebase documentation. For specific guidance on deploying your application from within Firebase Studio, you can read the [Firebase Studio docs](https://firebase.google.com/docs/studio/deploy-app).
+
+**2. Other Hosting Providers (Vercel, Netlify, GitHub Pages, etc.):**
+   You can also deploy your **OopsDev** project to other popular hosting services. The general steps usually involve:
+   *   Building your project for production (e.g., `npm run build`).
+   *   Connecting your Git repository to the hosting service.
+   *   Configuring the build command and publish directory according to the service's instructions.
+
+**3. Manual Deployment:**
+   If you have your own server, you can manually build your project (e.g., `npm run build`) and then upload the contents of your build output directory (often `dist` or `build`) to your web server.
+
+## Can I connect a custom domain to my OopsDev project?
+
+Yes, you can! This process is handled within your chosen hosting provider's settings.
+For Firebase Hosting, you add a custom domain in the Firebase Console under the "Hosting" section.
+Refer to your hosting provider's documentation for specific instructions on connecting a custom domain for your **OopsDev** project.
+
 
 ## Can I connect a custom domain to my Lovable project?
 
