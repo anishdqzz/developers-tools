@@ -501,27 +501,8 @@ const themes = {
 };
 
 const ReactCheatsheet = () => {
-  const [text, setText] = useState('');
   const [theme, setTheme] = useState('dark');
-  const fullText = 'React Basic To Advance';
-
   const { bgColor, textColor } = themes[theme];
-
-  useEffect(() => {
-    let i = 0;
-    const typing = setInterval(() => {
-      if (i < fullText.length) {
-        setText(fullText.substring(0, i + 1));
-        i++;
-      } else {
-        setTimeout(() => {
-          setText('');
-          i = 0;
-        }, 1000);
-      }
-    }, 100);
-    return () => clearInterval(typing);
-  }, []);
 
   const getContrastingColor = (hexcolor) => {
     hexcolor = hexcolor.replace("#", "");
@@ -554,8 +535,7 @@ const ReactCheatsheet = () => {
         ))}
       </div>
       <h1 className="text-4xl font-bold mb-4 text-center" style={{color: '#61dafbaa'}}>
-        {text}        
-        <span className="animate-ping">|</span>
+        React Basic To Advance
       </h1>
       <p className="text-lg text-muted-foreground mb-8 text-center">
       Here’s a complete list of React topics, from fundamental concepts to advanced techniques.
