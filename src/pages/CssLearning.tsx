@@ -110,6 +110,36 @@ const cssProperties = [
     example: ".relative { position: relative; top: 10px; left: 10px; background: lightblue; }",
     html: "<div class='relative'>This div is positioned relative.</div>"
   },
+  {
+    tagName: "flexbox",
+    description: "A layout model that allows items in a container to be aligned and distributed space within a container, even when their size is unknown or dynamic.",
+    example: ".container { display: flex; justify-content: space-around; }",
+    html: "<div style='display: flex; justify-content: space-around; border: 1px solid black; padding: 10px;'><div>Item 1</div><div>Item 2</div><div>Item 3</div></div>"
+  },
+  {
+    tagName: "grid",
+    description: "A two-dimensional layout system for the web. It lets you lay content out in rows and columns, and has many features that make building complex layouts straightforward.",
+    example: ".wrapper { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }",
+    html: "<div style='display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; border: 1px solid black; padding: 10px;'><div style='border: 1px solid grey; padding: 5px;'>1</div><div style='border: 1px solid grey; padding: 5px;'>2</div><div style='border: 1px solid grey; padding: 5px;'>3</div><div style='border: 1px solid grey; padding: 5px;'>4</div><div style='border: 1px solid grey; padding: 5px;'>5</div><div style='border: 1px solid grey; padding: 5px;'>6</div></div>"
+  },
+  {
+    tagName: "transform",
+    description: "Lets you modify the coordinate space of the CSS visual formatting model. Using it, elements can be translated, rotated, scaled, and skewed.",
+    example: "div { transform: rotate(20deg); }",
+    html: "<div style='padding: 10px; border: 1px solid black; display: inline-block;'>Rotated</div>"
+  },
+  {
+    tagName: "transition",
+    description: "Allows you to control the speed of CSS property changes, creating smooth animations.",
+    example: "div { transition: width 2s; } div:hover { width: 300px; }",
+    html: "<div style='width: 100px; height: 50px; background: lightblue; border: 1px solid black;'>Hover over me</div>"
+  },
+  {
+    tagName: "animation",
+    description: "A shorthand property for @keyframes, animation-name, animation-duration, and other animation properties.",
+    example: "@keyframes example { from {background-color: red;} to {background-color: yellow;} } div { animation-name: example; animation-duration: 4s; }",
+    html: "<div style='width: 100px; height: 100px; background-color: red;'>Animating</div>"
+  }
 ];
 
 const themes = {
